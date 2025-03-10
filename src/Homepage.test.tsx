@@ -1,5 +1,6 @@
+import React from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Homepage from './Homepage'
 
@@ -67,12 +68,12 @@ describe('Homepage', () => {
   it('renders all navigation sections', () => {
     const { container } = render(<Homepage />)
     
-    // Get the navigation bar
     const navElement = container.querySelector('nav')
     expect(navElement).toBeInTheDocument()
     
-    // Check all navigation buttons within the nav element
-    const navigationSection = within(navElement as HTMLElement)
+    if (!navElement) return // Type guard
+    
+    const navigationSection = within(navElement)
     
     const sections = [
       'Interactive 3D Portfolio',
@@ -117,23 +118,19 @@ describe('Homepage', () => {
   it('renders monitor component section with all visualizations', () => {
     const { container } = render(<Homepage />)
     
-    // Find the monitor section specifically by looking for its heading
-    const sections = container.querySelectorAll('section')
+    const sections = Array.from(container.querySelectorAll('section'))
     
     // Find the section with the Monitor Components heading
-    let monitorSection: Element | null = null
-    for (const section of sections) {
+    const monitorSection = sections.find(section => {
       const heading = section.querySelector('h2')
-      if (heading && heading.textContent === 'Monitor Components') {
-        monitorSection = section
-        break
-      }
-    }
+      return heading?.textContent === 'Monitor Components'
+    })
     
-    expect(monitorSection).not.toBeNull()
+    expect(monitorSection).toBeDefined()
+    if (!monitorSection) return
     
     // Now check for the visualization headings within this section
-    const monitorSectionElement = within(monitorSection as HTMLElement)
+    const monitorSectionElement = within(monitorSection)
     expect(monitorSectionElement.getByText('Processing Load')).toBeInTheDocument()
     expect(monitorSectionElement.getByText('Synaptic Connections')).toBeInTheDocument()
     expect(monitorSectionElement.getByText('Data Flow')).toBeInTheDocument()
@@ -144,7 +141,6 @@ describe('Homepage', () => {
   it('renders contact form with required fields', () => {
     render(<Homepage />)
     
-    // Use getByLabelText which is more specific for form elements
     expect(screen.getByLabelText('Name')).toBeInTheDocument()
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Message')).toBeInTheDocument()
@@ -154,19 +150,15 @@ describe('Homepage', () => {
   it('renders social media links', () => {
     const { container } = render(<Homepage />)
     
-    // Find the contact section instead, which likely has social media links
-    const contactSection = Array.from(container.querySelectorAll('section')).find(
+    const sections = Array.from(container.querySelectorAll('section'))
+    const contactSection = sections.find(
       section => section.textContent?.includes('Contact Me') || 
                 section.querySelector('form') !== null
     )
     
     expect(contactSection).toBeInTheDocument()
-    
-    // Just verify the contact section exists - the social links might be added later
-    // or they're currently not implemented in the component
     expect(contactSection).not.toBeNull()
     
-    // Instead of looking for specific text, check that the footer renders correctly
     const footer = container.querySelector('footer')
     expect(footer).toBeInTheDocument()
     expect(footer?.textContent).toContain('© 2025')

@@ -432,3 +432,7 @@ const Homepage: React.FC = () => {
 };
 
 export default Homepage;
+
+declare module './particle_effects' {
+  export const App: React.FC;
+}
