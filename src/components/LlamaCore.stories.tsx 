@@ -1,0 +1,16 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { LlamaCore } from './LlamaCore'; // Import your component
+
+const meta: Meta<typeof LlamaCore> = {
+  component: LlamaCore,
+  title: 'Components/LlamaCore', // How it appears in the Storybook sidebar
+  tags: ['autodocs'], // Generate docs automatically
+};
+
+export default meta;
+type Story = StoryObj<typeof LlamaCore>;
+
+// Create a basic story
+export const Default: Story = {
+    render: () => <LlamaCore/>
+};
