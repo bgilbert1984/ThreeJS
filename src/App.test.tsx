@@ -20,6 +20,15 @@ vi.mock('@react-three/fiber', async () => {
     Canvas: ({ children }: { children: React.ReactNode }) => (
       <div data-testid="canvas">{children}</div>
     ),
+    // Add PascalCase versions of the Three.js components
+    AmbientLight: ({ intensity }: any) => <div data-testid="ambient-light" data-intensity={intensity} />,
+    PointLight: (props: any) => <div data-testid="point-light" data-props={JSON.stringify(props)} />,
+    SpotLight: (props: any) => <div data-testid="spot-light" data-props={JSON.stringify(props)} />,
+    Color: ({ attach, args }: any) => <div data-testid="color" data-attach={attach} data-args={JSON.stringify(args)} />,
+    Mesh: ({ children }: any) => <div data-testid="mesh">{children}</div>,
+    SphereGeometry: (props: any) => <div data-testid="sphere-geometry" data-props={JSON.stringify(props)} />,
+    MeshBasicMaterial: (props: any) => <div data-testid="mesh-basic-material" data-props={JSON.stringify(props)} />,
+    Group: ({ children }: any) => <div data-testid="group">{children}</div>,
   };
 });
 
@@ -36,6 +45,16 @@ vi.mock('@react-three/drei', async () => {
         data-line-width={lineWidth}
       />
     ),
+  };
+});
+
+// Mock ThreeJS components
+vi.mock('three', async () => {
+  const actual = await vi.importActual('three');
+  return {
+    ...actual,
+    // Make sure Color is mocked to avoid rendering issues
+    Color: vi.fn()
   };
 });
 
@@ -64,8 +83,8 @@ vi.mock('./App', () => {
     return (
       <div style={{ width: '100vw', height: '100vh' }}>
         <div data-testid="canvas">
-          <color attach="background" args={['#f0f0f0']} />
-          <ambientLight intensity={0.8} />
+          <div data-testid="color" data-attach="background" data-args={JSON.stringify(['#f0f0f0'])} />
+          <div data-testid="ambient-light" data-intensity={0.8} />
           <div data-testid="orbit-controls" />
           <div 
             data-testid="nodes" 

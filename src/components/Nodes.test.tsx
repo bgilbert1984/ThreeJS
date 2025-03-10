@@ -20,6 +20,10 @@ vi.mock('three', async () => {
 vi.mock('@react-three/fiber', () => ({
   useFrame: vi.fn(),
   extend: vi.fn(),
+  Mesh: ({ children }: any) => <div data-testid="mesh">{children}</div>,
+  SphereGeometry: (props: any) => <div data-testid="sphere-geometry" data-props={JSON.stringify(props)} />,
+  MeshBasicMaterial: (props: any) => <div data-testid="mesh-basic-material" data-props={JSON.stringify(props)} />,
+  Group: ({ children }: any) => <div data-testid="group">{children}</div>,
 }));
 
 // Mock drei

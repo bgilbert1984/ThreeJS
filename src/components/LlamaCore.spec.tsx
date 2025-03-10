@@ -1,3 +1,16 @@
+// Create Points mock - must be defined before THREE imports/mocks
+const createPointsMock = () => {
+  return function(geometry: any, material: any) {
+    const points = {
+      geometry,
+      material,
+      rotation: { y: 0 },
+      type: 'Points',
+    };
+    return points;
+  };
+};
+
 // Mock definitions - must be at the top, before imports!
 // Define mock class for Color
 class ColorMock {
@@ -29,19 +42,6 @@ class ColorMock {
     return this;
   }
 }
-
-// Create Points mock - must be defined before THREE imports/mocks
-const createPointsMock = () => {
-  return function(geometry: any, material: any) {
-    const points = {
-      geometry,
-      material,
-      rotation: { y: 0 },
-      type: 'Points',
-    };
-    return points;
-  };
-};
 
 // Now import modules
 import React from 'react';
