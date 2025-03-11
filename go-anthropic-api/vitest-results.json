@@ -1,0 +1,499 @@
+{
+  "numTotalTestSuites": 21,
+  "numPassedTestSuites": 18,
+  "numFailedTestSuites": 3,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 29,
+  "numPassedTests": 18,
+  "numFailedTests": 11,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "startTime": 1741662209990,
+  "success": false,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "App Component"
+          ],
+          "fullName": " App Component should render loading state when no nodes data",
+          "status": "failed",
+          "title": "should render loading state when no nodes data",
+          "duration": 26,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 135,
+            "column": 42
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "App Component"
+          ],
+          "fullName": " App Component should render Canvas with nodes when data is available",
+          "status": "failed",
+          "title": "should render Canvas with nodes when data is available",
+          "duration": 6,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 145,
+            "column": 40
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "App Component"
+          ],
+          "fullName": " App Component should handle node updates correctly",
+          "status": "failed",
+          "title": "should handle node updates correctly",
+          "duration": 4,
+          "failureMessages": [
+            "Invalid Chai property: toHaveAttribute"
+          ],
+          "location": {
+            "line": 159,
+            "column": 16
+          }
+        }
+      ],
+      "startTime": 1741662211177,
+      "endTime": 1741662211213,
+      "status": "failed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/App.test.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage renders without crashing",
+          "status": "failed",
+          "title": "renders without crashing",
+          "duration": 138,
+          "failureMessages": [
+            "Found multiple elements by: [data-testid=\"canvas\"]\n\nHere are the matching elements:\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<ambientlight\u001b[39m\n    \u001b[33mintensity\u001b[39m=\u001b[32m\"0.5\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"particle-effects-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<ambientlight\u001b[39m\n    \u001b[33mintensity\u001b[39m=\u001b[32m\"0.5\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<pointlight\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"llama-core-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"particle-effects-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"object-clump-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<color\u001b[39m\n    \u001b[33margs\u001b[39m=\u001b[32m\"#1a1a2e\"\u001b[39m\n    \u001b[33mattach\u001b[39m=\u001b[32m\"background\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<ambientlight\u001b[39m\n    \u001b[33mintensity\u001b[39m=\u001b[32m\"0.8\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<spotlight\u001b[39m\n    \u001b[33mangle\u001b[39m=\u001b[32m\"0.15\"\u001b[39m\n    \u001b[33mpenumbra\u001b[39m=\u001b[32m\"1\"\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"nodes-mock\"\u001b[39m\n  \u001b[36m>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"node-mock\"\u001b[39m\n    \u001b[36m/>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<ambientlight />\u001b[39m\n  \u001b[36m<pointlight\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"processing-load-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<ambientlight />\u001b[39m\n  \u001b[36m<pointlight\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"synaptic-connections-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<ambientlight />\u001b[39m\n  \u001b[36m<pointlight\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"data-flow-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<ambientlight />\u001b[39m\n  \u001b[36m<pointlight\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"anticipation-index-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<ambientlight />\u001b[39m\n  \u001b[36m<pointlight\u001b[39m\n    \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"prompt-completion-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<div\u001b[39m\n  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33mdata-testid\u001b[39m=\u001b[32m\"copilot-visualization-mock\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</div>\u001b[39m\n\n(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"homepage\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<nav\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"fixed top-0 left-0 w-full bg-black bg-opacity-75 z-50 text-white p-4\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"container mx-auto flex justify-between items-center\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h1\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"text-xl font-bold\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m3D Interactive Portfolio\u001b[0m\n          \u001b[36m</h1>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"space-x-4\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 bg-purple-600 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mInteractive 3D Portfolio\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 hover:bg-purple-700 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mLlamaCore Visualization\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 hover:bg-purple-700 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mParticle Effects\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 hover:bg-purple-700 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mInteractive Objects\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 hover:bg-purple-700 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mNetwork Visualization\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 hover:bg-purple-700 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mMonitor Components\u001b[0m\n            \u001b[36m</button>\u001b[39m\n            \u001b[36m<button\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 hover:bg-purple-700 rounded\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[0mContact Me\u001b[0m\n            \u001b[36m</button>\u001b[39m\n          \u001b[36m</div>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n      \u001b[36m</nav>\u001b[39m\n      \u001b[36m<section\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"h-screen flex flex-col items-center justify-center relative bg-gray-900 text-white\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"absolute inset-0\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[36m<div\u001b[39m\n              \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n            \u001b[36m/>\u001b[39m\n            \u001b[36m<ambientlight\u001b[39m\n              \u001b[33mintensity\u001b[39m=\u001b[32m\"0.5\"\u001b[39m\n            \u001b[36m/>\u001b[39m\n            \u001b[36m<div\u001b[39m\n              \u001b[33mdata-testid\u001b[39m=\u001b[32m\"particle-effects-mock\"\u001b[39m\n            \u001b[36m/>\u001b[39m\n          \u001b[36m</div>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"container mx-auto text-center z-10 p-8 bg-black bg-opacity-50 rounded-lg\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h1\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"text-5xl font-bold mb-6\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mInteractive 3D Web Development\u001b[0m\n          \u001b[36m</h1>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"text-xl mb-8 max-w-2xl mx-auto\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mShowcasing the power of Three.js and React for creating immersive web experiences. Scroll down to explore interactive visualizations and components.\u001b[0m\n          \u001b[36m</p>\u001b[39m\n          \u001b[36m<button\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-lg font-medium\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mExplore Projects\u001b[0m\n          \u001b[36m</button>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n      \u001b[36m</section>\u001b[39m\n      \u001b[36m<section\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"min-h-screen py-24 bg-gradient-to-b from-gray-900 to-indigo-900 text-white\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"container mx-auto px-4\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<div\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"grid grid-cols-1 lg:grid-cols-2 gap-8 items-center\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[36m<div\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"p-6\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[36m<h2\u001b[39m\n                \u001b[33mclass\u001b[39m=\u001b[32m\"text-3xl font-bold mb-4\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[0mLlamaCore Visualization\u001b[0m\n              \u001b[36m</h2>\u001b[39m\n              \u001b[36m<p\u001b[39m\n                \u001b[33mclass\u001b[39m=\u001b[32m\"mb-4\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[0mLorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl nunc quis nisl. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl nunc quis nisl.\u001b[0m\n              \u001b[36m</p>\u001b[39m\n              \u001b[36m<div\u001b[39m\n                \u001b[33mclass\u001b[39m=\u001b[32m\"flex flex-wrap gap-2 mt-4\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<span\u001b[39m\n                  \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 bg-blue-600 rounded-full text-sm\"\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[0mThree.js\u001b[0m\n                \u001b[36m</span>\u001b[39m\n                \u001b[36m<span\u001b[39m\n                  \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 bg-green-600 rounded-full text-sm\"\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[0mReact\u001b[0m\n                \u001b[36m</span>\u001b[39m\n                \u001b[36m<span\u001b[39m\n                  \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 bg-yellow-600 rounded-full text-sm\"\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[0mAnimation\u001b[0m\n                \u001b[36m</span>\u001b[39m\n                \u001b[36m<span\u001b[39m\n                  \u001b[33mclass\u001b[39m=\u001b[32m\"px-3 py-1 bg-red-600 rounded-full text-sm\"\u001b[39m\n                \u001b[36m>\u001b[39m\n                  \u001b[0m3D Modeling\u001b[0m\n                \u001b[36m</span>\u001b[39m\n              \u001b[36m</div>\u001b[39m\n            \u001b[36m</div>\u001b[39m\n            \u001b[36m<div\u001b[39m\n              \u001b[33mclass\u001b[39m=\u001b[32m\"h-[500px]\"\u001b[39m\n            \u001b[36m>\u001b[39m\n              \u001b[36m<div\u001b[39m\n                \u001b[33mdata-testid\u001b[39m=\u001b[32m\"canvas\"\u001b[39m\n              \u001b[36m>\u001b[39m\n                \u001b[36m<ambientlight\u001b[39m\n                  \u001b[33mintensity\u001b[39m=\u001b[32m\"0.5\"\u001b[39m\n                \u001b[36m/>\u001b[39m\n                \u001b[36m<pointlight\u001b[39m\n                  \u001b[33mposition\u001b[39m=\u001b[32m\"10,10,10\"\u001b[39m\n                \u001b[36m/>\u001b[39m\n                \u001b[36m<div\u001b[39m\n                  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"orbit-controls-mock\"\u001b[39m\n                \u001b[36m/>\u001b[39m\n                \u001b[36m<div\u001b[39m\n                  \u001b[33mdata-testid\u001b[39m=\u001b[32m\"llama-core-mock\"\u001b[39m\n                \u001b[36m/>\u001b[39m\n              \u001b[36m</div>\u001b[39m\n            \u001b[36m</div>\u001b[39m\n          \u001b[36m</div>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n      \u001b[36m</section>\u001b[39m\n      \u001b[36m<section\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"min-h-screen py-24 bg-gradi..."
+          ],
+          "location": {
+            "line": 37,
+            "column": 19
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage renders all navigation sections",
+          "status": "failed",
+          "title": "renders all navigation sections",
+          "duration": 22,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 72,
+            "column": 22
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage changes active section when clicking navigation buttons",
+          "status": "failed",
+          "title": "changes active section when clicking navigation buttons",
+          "duration": 11,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 98,
+            "column": 22
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage renders 3D canvas elements",
+          "status": "passed",
+          "title": "renders 3D canvas elements",
+          "duration": 28,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage renders monitor component section with all visualizations",
+          "status": "failed",
+          "title": "renders monitor component section with all visualizations",
+          "duration": 18,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 134,
+            "column": 62
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage renders contact form with required fields",
+          "status": "failed",
+          "title": "renders contact form with required fields",
+          "duration": 27,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 144,
+            "column": 41
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Homepage"
+          ],
+          "fullName": " Homepage renders social media links",
+          "status": "failed",
+          "title": "renders social media links",
+          "duration": 21,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 159,
+            "column": 26
+          }
+        }
+      ],
+      "startTime": 1741662211259,
+      "endTime": 1741662211524,
+      "status": "failed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/Homepage.test.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "Utility Functions",
+            "generateColor"
+          ],
+          "fullName": " Utility Functions generateColor should generate different colors for different indices",
+          "status": "passed",
+          "title": "should generate different colors for different indices",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Utility Functions",
+            "generateColor"
+          ],
+          "fullName": " Utility Functions generateColor should generate HSL color strings",
+          "status": "passed",
+          "title": "should generate HSL color strings",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Utility Functions",
+            "generateColor"
+          ],
+          "fullName": " Utility Functions generateColor should distribute colors evenly using the golden angle approximation",
+          "status": "passed",
+          "title": "should distribute colors evenly using the golden angle approximation",
+          "duration": 0,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1741662211636,
+      "endTime": 1741662211637,
+      "status": "passed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/utils.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component renders without crashing",
+          "status": "failed",
+          "title": "renders without crashing",
+          "duration": 31,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 200,
+            "column": 68
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component renders the visualization container",
+          "status": "failed",
+          "title": "renders the visualization container",
+          "duration": 9,
+          "failureMessages": [
+            "Invalid Chai property: toBeInTheDocument"
+          ],
+          "location": {
+            "line": 206,
+            "column": 20
+          }
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component creates the correct number of layers",
+          "status": "passed",
+          "title": "creates the correct number of layers",
+          "duration": 13,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component cleans up resources on unmount",
+          "status": "passed",
+          "title": "cleans up resources on unmount",
+          "duration": 9,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component adds a resize event listener",
+          "status": "passed",
+          "title": "adds a resize event listener",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component removes the resize event listener on unmount",
+          "status": "passed",
+          "title": "removes the resize event listener on unmount",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "NeuralNetworkVisualization Component"
+          ],
+          "fullName": " NeuralNetworkVisualization Component starts the animation loop",
+          "status": "passed",
+          "title": "starts the animation loop",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1741662211185,
+      "endTime": 1741662211258,
+      "status": "failed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/components/ClaudeVisualization.spec.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "CopilotVisualization Component"
+          ],
+          "fullName": " CopilotVisualization Component renders a Canvas component",
+          "status": "passed",
+          "title": "renders a Canvas component",
+          "duration": 92,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "CopilotVisualization Component"
+          ],
+          "fullName": " CopilotVisualization Component renders Box components for voxels",
+          "status": "passed",
+          "title": "renders Box components for voxels",
+          "duration": 11,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "CopilotVisualization Component"
+          ],
+          "fullName": " CopilotVisualization Component contains ambient and point lights",
+          "status": "passed",
+          "title": "contains ambient and point lights",
+          "duration": 9,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1741662211236,
+      "endTime": 1741662211348,
+      "status": "passed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/components/CopilotVisualization.spec.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "<GrokVisualization />"
+          ],
+          "fullName": " <GrokVisualization /> renders without crashing",
+          "status": "passed",
+          "title": "renders without crashing",
+          "duration": 18,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1741662211686,
+      "endTime": 1741662211704,
+      "status": "passed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/components/GrokVisualization.spec.tsx"
+    },
+    {
+      "assertionResults": [],
+      "startTime": 1741662209990,
+      "endTime": 1741662209990,
+      "status": "passed",
+      "message": "Failed to resolve entry for package \"@react-three/cannon\". The package may have incorrect main/module/exports specified in its package.json.",
+      "name": "/home/gorelock/threejs-test-project/src/components/LlamaCore.spec.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "<LlamaCoreD3 />"
+          ],
+          "fullName": " <LlamaCoreD3 /> renders without crashing",
+          "status": "passed",
+          "title": "renders without crashing",
+          "duration": 123,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "<LlamaCoreD3 />"
+          ],
+          "fullName": " <LlamaCoreD3 /> creates particles with positions",
+          "status": "passed",
+          "title": "creates particles with positions",
+          "duration": 105,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1741662211556,
+      "endTime": 1741662211784,
+      "status": "passed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/components/LlamaCore_2D.spec.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "Node Component"
+          ],
+          "fullName": " Node Component should create a Node with correct properties",
+          "status": "passed",
+          "title": "should create a Node with correct properties",
+          "duration": 17,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Node Component"
+          ],
+          "fullName": " Node Component should update position and color when methods are called",
+          "status": "passed",
+          "title": "should update position and color when methods are called",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Nodes Component"
+          ],
+          "fullName": " Nodes Component should render nodes and their connections",
+          "status": "passed",
+          "title": "should render nodes and their connections",
+          "duration": 25,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1741662211217,
+      "endTime": 1741662211266,
+      "status": "passed",
+      "message": "",
+      "name": "/home/gorelock/threejs-test-project/src/components/Nodes.test.tsx"
+    },
+    {
+      "assertionResults": [],
+      "startTime": 1741662209990,
+      "endTime": 1741662209990,
+      "status": "passed",
+      "message": "Failed to resolve entry for package \"@react-three/cannon\". The package may have incorrect main/module/exports specified in its package.json.",
+      "name": "/home/gorelock/threejs-test-project/src/components/object-clump.spec.tsx"
+    },
+    {
+      "assertionResults": [],
+      "startTime": 1741662209990,
+      "endTime": 1741662209990,
+      "status": "passed",
+      "message": "Failed to parse source for import analysis because the content contains invalid JS syntax. If you are using JSX, make sure to name the file with the .jsx or .tsx extension.",
+      "name": "/home/gorelock/threejs-test-project/src/components/particle-effects.spec.tsx"
+    }
+  ]
+}
