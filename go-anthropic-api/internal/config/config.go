@@ -1,29 +1,34 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
-	"os"
+    "os"
+    "fmt"
+    "github.com/joho/godotenv"
 )
 
+// Config holds application configuration
 type Config struct {
-	Port         string
-	AnthropicKey string
+    AnthropicAPIKey string
+    Port            string
 }
 
-func LoadConfig() (*Config, error) {
-	if err := godotenv.Load(); err != nil {
-		return nil, err
-	}
-
-	return &Config{
-		Port:         getEnvOrDefault("PORT", "8080"),
-		AnthropicKey: os.Getenv("ANTHROPIC_API_KEY"),
-	}, nil
-}
-
-func getEnvOrDefault(key, defaultValue string) string {
-	if value := os.Getenv(key); value != "" {
-		return value
-	}
-	return defaultValue
+// Load loads configuration from environment variables
+func Load() (*Config, error) {
+    // Try to load from .env file if it exists
+    _ = godotenv.Load()
+    
+    apiKey := os.Getenv("ANTHROPIC_API_KEY")
+    if apiKey == "" {
+        return nil, fmt.Errorf("ANTHROPIC_API_KEY environment variable not set")
+    }
+    
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080" // Default port
+    }
+    
+    return &Config{
+        AnthropicAPIKey: apiKey,
+        Port:            port,
+    }, nil
 }

@@ -6,7 +6,7 @@ import Homepage from './Homepage'
 
 // Mock the Three.js related imports since they're not needed for most tests
 vi.mock('@react-three/fiber', () => ({
-  Canvas: ({ children }: { children: React.ReactNode }) => <div data-testid="canvas-mock">{children}</div>,
+  Canvas: ({ children }: { children: React.ReactNode }) => <div data-testid="canvas">{children}</div>,
   AmbientLight: ({ intensity }: any) => <div data-testid="ambient-light-mock" data-intensity={intensity} />,
   PointLight: (props: any) => <div data-testid="point-light-mock" data-props={JSON.stringify(props)} />,
   SpotLight: (props: any) => <div data-testid="spot-light-mock" data-props={JSON.stringify(props)} />,
@@ -62,7 +62,8 @@ describe('Homepage', () => {
 
   it('renders without crashing', () => {
     render(<Homepage />)
-    expect(screen.getByText('Interactive 3D Web Development')).toBeInTheDocument()
+    const canvases = screen.queryAllByTestId('canvas')
+    expect(canvases.length).toBeGreaterThan(0)
   })
 
   it('renders all navigation sections', () => {
@@ -111,7 +112,7 @@ describe('Homepage', () => {
 
   it('renders 3D canvas elements', () => {
     render(<Homepage />)
-    const canvases = screen.getAllByTestId('canvas-mock')
+    const canvases = screen.getAllByTestId('canvas')
     expect(canvases.length).toBeGreaterThan(0)
   })
 

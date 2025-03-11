@@ -1,0 +1,7 @@
+[dependencies]
+actix-web = "4"  # Web framework
+reqwest = { version = "0.11", features = ["json"] }  # HTTP client with JSON support
+tokio = { version = "1", features = ["full"] }      # Async runtime
+serde = { version = "1.0", features = ["derive"] }   # Serialization/deserialization
+dotenv = "0.15"  #For .env files
+anthropic = "0.2.0" #Anthropic API

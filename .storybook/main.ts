@@ -3,26 +3,36 @@ import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
   stories: [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
-    "@storybook/addon-interactions",
-    "@storybook/addon-mdx-gfm"
   ],
   framework: {
     name: "@storybook/react-vite",
-    options: {},
-  },
-  docs: {
-    autodocs: "tag",
+    options: {
+      builder: {
+        viteConfigPath: 'vite.config.ts',
+      },
+    },
   },
   core: {
-    builder: '@storybook/builder-vite',
-  }
+    disableTelemetry: true,
+  },
+  async viteFinal(config) {
+    return {
+      ...config,
+      server: {
+        ...config.server,
+        hmr: {
+          protocol: 'ws',
+          host: 'localhost',
+          port: 6006,
+        },
+      },
+    };
+  },
 };
 
 export default config;

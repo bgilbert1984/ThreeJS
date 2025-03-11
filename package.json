@@ -1,11 +1,17 @@
 {
   "scripts": {
     "dev": "vite",
+    "type": "module",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:report": "vitest --run --reporter=json --outputFile=/home/gorelock/threejs-test-project/go-anthropic-api/vitest-results.json",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -27,6 +33,7 @@
     "@types/react-dom": "^18.3.5",
     "@types/three": "^0.156.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "cypress": "^14.1.0",
     "jsdom": "^22.1.0",
     "resize-observer-polyfill": "^1.5.1",
     "typescript": "^5.0.2",

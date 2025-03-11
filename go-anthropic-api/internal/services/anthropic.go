@@ -1,75 +1,45 @@
 package services
 
 import (
-	"bytes"
-	"encoding/json"
+	"context"
 	"fmt"
-	"net/http"
+
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
-const anthropicAPIEndpoint = "https://api.anthropic.com/v1/messages"
-
+// AnthropicClient wraps the Anthropic API client
 type AnthropicClient struct {
-	apiKey string
+	client *anthropic.Client
 }
 
-type Message struct {
-	Role    string `json:"role"`
-	Content string `json:"content"`
-}
-
-type MessageRequest struct {
-	Model     string    `json:"model"`
-	MaxTokens int       `json:"max_tokens"`
-	Messages  []Message `json:"messages"`
-}
-
+// MessageResponse represents the response from Anthropic API
 type MessageResponse struct {
 	Content []struct {
+		Type string `json:"type"`
 		Text string `json:"text"`
 	} `json:"content"`
 }
 
+// NewAnthropicClient creates a new Anthropic client
 func NewAnthropicClient(apiKey string) *AnthropicClient {
-	return &AnthropicClient{apiKey: apiKey}
+	client := anthropic.NewClient(option.WithAPIKey(apiKey))
+	return &AnthropicClient{
+		client: client,
+	}
 }
 
-func (c *AnthropicClient) CreateMessage(prompt string) (*MessageResponse, error) {
-	request := MessageRequest{
-		Model:     "claude-3-sonnet-20240229",
-		MaxTokens: 1024,
-		Messages:  []Message{{Role: "user", Content: prompt}},
-	}
-
-	jsonData, err := json.Marshal(request)
+// CreateMessage sends a message to Claude and returns the response
+func (c *AnthropicClient) CreateMessage(prompt string) (*anthropic.Message, error) {
+	message, err := c.client.Messages.New(context.Background(), anthropic.MessageNewParams{
+		Model:     anthropic.F(anthropic.ModelClaude37Sonnet),
+		MaxTokens: anthropic.F(int64(1024)),
+		Messages: anthropic.F([]anthropic.MessageParam{
+			anthropic.NewUserMessage(anthropic.NewTextBlock(prompt)),
+		}),
+	})
 	if err != nil {
-		return nil, fmt.Errorf("error marshaling request: %v", err)
+		return nil, fmt.Errorf("error calling Anthropic API: %w", err)
 	}
-
-	req, err := http.NewRequest("POST", anthropicAPIEndpoint, bytes.NewBuffer(jsonData))
-	if err != nil {
-		return nil, fmt.Errorf("error creating request: %v", err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("X-API-Key", c.apiKey)
-	req.Header.Set("anthropic-version", "2023-06-01")
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("error making request: %v", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
-	}
-
-	var response MessageResponse
-	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
-		return nil, fmt.Errorf("error decoding response: %v", err)
-	}
-
-	return &response, nil
+	return message, nil
 }

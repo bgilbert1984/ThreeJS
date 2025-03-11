@@ -3,13 +3,31 @@ import * as THREE from 'three';
 import '@testing-library/jest-dom';
 
 // Mock canvas
-global.HTMLCanvasElement.prototype.getContext = vi.fn(() => ({
-  // Basic WebGL context methods
-  bindBuffer: vi.fn(),
-  createBuffer: vi.fn(),
-  bufferData: vi.fn(),
-  // Add other methods as needed
-}));
+global.HTMLCanvasElement.prototype.getContext = vi.fn((contextId) => {
+  if (contextId === 'webgl' || contextId === 'webgl2') {
+    return {
+      createShader: vi.fn(),
+      shaderSource: vi.fn(),
+      compileShader: vi.fn(),
+      getShaderParameter: vi.fn(() => true),
+      createProgram: vi.fn(),
+      attachShader: vi.fn(),
+      linkProgram: vi.fn(),
+      getProgramParameter: vi.fn(() => true),
+      useProgram: vi.fn(),
+      createBuffer: vi.fn(),
+      bindBuffer: vi.fn(),
+      bufferData: vi.fn(),
+      enable: vi.fn(),
+      disable: vi.fn(),
+      getExtension: vi.fn(() => null),
+      getParameter: vi.fn(() => 0),
+      viewport: vi.fn(),
+      clear: vi.fn()
+    };
+  }
+  return null;
+});
 
 // Mock ResizeObserver
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
@@ -20,8 +38,12 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
 
 // Mock requestAnimationFrame
 global.requestAnimationFrame = vi.fn((callback) => {
-  callback(0);
-  return 0;
+  return setTimeout(() => callback(performance.now()), 0);
+});
+
+// Mock cancelAnimationFrame
+global.cancelAnimationFrame = vi.fn((id) => {
+  clearTimeout(id);
 });
 
 // Mock Three.js components that might be difficult to test

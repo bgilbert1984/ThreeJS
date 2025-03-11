@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "jsxFactory": "React.createElement",
     /* Linting */
     "strict": true,
@@ -23,6 +23,6 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src"],
+  "include": ["src", "app/page.tsx", "app/layout.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

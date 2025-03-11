@@ -1,0 +1,57 @@
+.questdb-connector {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 15px;
+  border-radius: 4px;
+  color: white;
+  font-family: monospace;
+  z-index: 1000;
+  user-select: none;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-idle {
+  background-color: #888;
+}
+
+.status-loading {
+  background-color: #ffcc00;
+  animation: pulse 1.5s infinite;
+}
+
+.status-success {
+  background-color: #00cc66;
+}
+
+.status-error {
+  background-color: #ff3333;
+}
+
+.status-text {
+  font-size: 14px;
+}
+
+.last-updated {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-left: 10px;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
