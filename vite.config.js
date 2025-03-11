@@ -10,11 +10,16 @@ export default defineConfig({
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', '@react-three/fiber', '@react-three/drei', 'three'],
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+        '.jsx': 'jsx'
+      }
+    }
+  },
   esbuild: {
-    loader: {
-      '.js': 'jsx',
-      '.jsx': 'jsx'
-    },
     jsxFactory: 'React.createElement',
     jsxFragment: 'React.Fragment'
   },
@@ -33,8 +38,5 @@ export default defineConfig({
       protocol: 'ws',
       host: 'localhost',
     },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', '@react-three/fiber', '@react-three/drei', 'three']
   }
 });

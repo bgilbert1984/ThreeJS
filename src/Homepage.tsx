@@ -1,14 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Text, ScrollControls, Scroll } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 
 // Import all visualization components
 import { LlamaCore } from './components/LlamaCore';
-import { LlamaCoreD3 } from './components/LlamaCore_2D';
 import { App as ParticleEffectsApp } from './components/particle_effects';
-import { App as ObjectClumpApp } from './components/object-clump';
-import NeuralNetworkVisualization from './components/ClaudeVisualization';
-import GrokVisualization from './components/GrokVisualization'; 
+import { ObjectClumpScene } from './components/object-clump'; // Import the scene-only version to avoid nested Canvas issues
 import { Nodes, Node } from './components/Nodes';
 import { 
   ProcessingLoadBar,
@@ -18,6 +15,21 @@ import {
   PromptCompletionProbability 
 } from './components/MonitorComponents';
 import CopilotVisualization from './components/CopilotVisualization';
+
+// Add WebGL error handling
+const handleContextCreationError = (event: Event) => {
+  console.error("WebGL context creation failed:", event);
+  // You could display a fallback UI here
+  alert("WebGL context creation failed. Please try a different browser or device.");
+};
+
+// Add WebGL context lost handling
+const handleContextLost = (event: Event) => {
+  console.error("WebGL context lost:", event);
+  // Attempt to recover or show a friendly message
+  alert("WebGL context was lost. The page will reload to recover.");
+  window.location.reload();
+};
 
 // Portfolio sections
 const sections = [
@@ -35,6 +47,33 @@ const Homepage: React.FC = () => {
   const [nodeRefs, setNodeRefs] = useState<React.RefObject<any>[]>([]);
   const [nodesData, setNodesData] = useState<any[]>([]);
   const sectionRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
+  const canvasRefs = useRef<{[key: string]: HTMLCanvasElement | null}>({});
+
+  // Add context lost event listeners
+  useEffect(() => {
+    // Add listeners to all canvas elements
+    const addContextListeners = () => {
+      Object.values(canvasRefs.current).forEach(canvas => {
+        if (canvas) {
+          canvas.addEventListener('webglcontextlost', handleContextLost);
+          canvas.addEventListener('webglcontextcreationerror', handleContextCreationError);
+        }
+      });
+    };
+
+    // Initial setup
+    setTimeout(addContextListeners, 1000);
+    
+    // Cleanup
+    return () => {
+      Object.values(canvasRefs.current).forEach(canvas => {
+        if (canvas) {
+          canvas.removeEventListener('webglcontextlost', handleContextLost);
+          canvas.removeEventListener('webglcontextcreationerror', handleContextCreationError);
+        }
+      });
+    };
+  }, []);
 
   // Create node network data
   useEffect(() => {
@@ -47,7 +86,7 @@ const Homepage: React.FC = () => {
           name: `Node ${i+1}`,
           color: `hsl(${(i * 45) % 360}, 70%, 60%)`,
           position: [(Math.random() * 6) - 3, (Math.random() * 6) - 3, 0] as [number, number, number],
-          connectedTo: [],
+          connectedTo: [] as number[],
         });
         refs.push(React.createRef());
       }
@@ -75,6 +114,11 @@ const Homepage: React.FC = () => {
     }
   };
 
+  // Save canvas ref helper
+  const saveCanvasRef = (id: string) => (canvas: HTMLCanvasElement) => {
+    canvasRefs.current[id] = canvas;
+  };
+
   return (
     <div className="homepage">
       {/* Navigation */}
@@ -97,11 +141,11 @@ const Homepage: React.FC = () => {
 
       {/* Hero Section */}
       <section 
-        ref={el => sectionRefs.current['intro'] = el}
+        ref={el => sectionRefs.current['intro'] = el as HTMLDivElement}
         className="h-screen flex flex-col items-center justify-center relative bg-gray-900 text-white"
       >
         <div className="absolute inset-0">
-          <Canvas>
+          <Canvas onCreated={({gl}) => saveCanvasRef('intro')(gl.domElement)}>
             <OrbitControls enableZoom={false} />
             <ambientLight intensity={0.5} />
             <ParticleEffectsApp />
@@ -124,7 +168,7 @@ const Homepage: React.FC = () => {
 
       {/* LlamaCore Section */}
       <section 
-        ref={el => sectionRefs.current['llama'] = el}
+        ref={el => sectionRefs.current['llama'] = el as HTMLDivElement}
         className="min-h-screen py-24 bg-gradient-to-b from-gray-900 to-indigo-900 text-white"
       >
         <div className="container mx-auto px-4">
@@ -145,7 +189,7 @@ const Homepage: React.FC = () => {
               </div>
             </div>
             <div className="h-[500px]">
-              <Canvas camera={{ position: [0, 0, 10] }}>
+              <Canvas camera={{ position: [0, 0, 10] }} onCreated={({gl}) => saveCanvasRef('llama')(gl.domElement)}>
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} />
                 <OrbitControls />
@@ -158,13 +202,13 @@ const Homepage: React.FC = () => {
 
       {/* Particle Effects Section */}
       <section 
-        ref={el => sectionRefs.current['particles'] = el}
+        ref={el => sectionRefs.current['particles'] = el as HTMLDivElement}
         className="min-h-screen py-24 bg-gradient-to-b from-indigo-900 to-purple-900 text-white"
       >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="h-[500px] order-2 lg:order-1">
-              <Canvas>
+              <Canvas onCreated={({gl}) => saveCanvasRef('particles')(gl.domElement)}>
                 <ParticleEffectsApp />
               </Canvas>
             </div>
@@ -188,7 +232,7 @@ const Homepage: React.FC = () => {
 
       {/* Object Clump Section */}
       <section 
-        ref={el => sectionRefs.current['objects'] = el}
+        ref={el => sectionRefs.current['objects'] = el as HTMLDivElement}
         className="min-h-screen py-24 bg-gradient-to-b from-purple-900 to-pink-900 text-white"
       >
         <div className="container mx-auto px-4">
@@ -208,8 +252,14 @@ const Homepage: React.FC = () => {
               </div>
             </div>
             <div className="h-[500px]">
-              <Canvas>
-                <ObjectClumpApp />
+              <Canvas 
+                shadows 
+                gl={{ antialias: false }} 
+                dpr={[1, 1.5]} 
+                camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
+                onCreated={({gl}) => saveCanvasRef('objects')(gl.domElement)}
+              >
+                <ObjectClumpScene />
               </Canvas>
             </div>
           </div>
@@ -218,13 +268,17 @@ const Homepage: React.FC = () => {
 
       {/* Network Nodes Section */}
       <section 
-        ref={el => sectionRefs.current['nodes'] = el}
+        ref={el => sectionRefs.current['nodes'] = el as HTMLDivElement}
         className="min-h-screen py-24 bg-gradient-to-b from-pink-900 to-red-900 text-white"
       >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="h-[500px] order-2 lg:order-1">
-              <Canvas orthographic camera={{ zoom: 80, position: [0, 0, 100] }}>
+              <Canvas 
+                orthographic 
+                camera={{ zoom: 80, position: [0, 0, 100] }}
+                onCreated={({gl}) => saveCanvasRef('nodes')(gl.domElement)}
+              >
                 <color attach="background" args={['#1a1a2e']} />
                 <ambientLight intensity={0.8} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
@@ -262,7 +316,7 @@ const Homepage: React.FC = () => {
 
       {/* Monitor Components Section */}
       <section 
-        ref={el => sectionRefs.current['monitors'] = el}
+        ref={el => sectionRefs.current['monitors'] = el as HTMLDivElement}
         className="min-h-screen py-24 bg-gradient-to-b from-red-900 to-yellow-900 text-white"
       >
         <div className="container mx-auto px-4">
@@ -272,7 +326,7 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Processing Load</h3>
               <div className="h-[200px]">
-                <Canvas>
+                <Canvas onCreated={({gl}) => saveCanvasRef('monitor1')(gl.domElement)}>
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <ProcessingLoadBar value={0.7} label="Processing Load" color="red" />
@@ -288,7 +342,7 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Synaptic Connections</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,5]}}>
+                <Canvas camera={{position: [0,0,5]}} onCreated={({gl}) => saveCanvasRef('monitor2')(gl.domElement)}>
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <SynapticConnections value={0.5} label="Synaptic Connections" />
@@ -304,7 +358,7 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Data Flow</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,5]}}>
+                <Canvas camera={{position: [0,0,5]}} onCreated={({gl}) => saveCanvasRef('monitor3')(gl.domElement)}>
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <DataFlow value={0.8} label="Data Flow" />
@@ -320,7 +374,7 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Anticipation Index</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,3]}}>
+                <Canvas camera={{position: [0,0,3]}} onCreated={({gl}) => saveCanvasRef('monitor4')(gl.domElement)}>
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <AnticipationIndex value={0.3} label="Anticipation Index" />
@@ -336,7 +390,7 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Prompt Completion</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,3]}}>
+                <Canvas camera={{position: [0,0,3]}} onCreated={({gl}) => saveCanvasRef('monitor5')(gl.domElement)}>
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <PromptCompletionProbability value={.9} label='Prompt Completion' color="magenta"/>
@@ -352,7 +406,7 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Copilot Visualization</h3>
               <div className="h-[200px]">
-                <Canvas>
+                <Canvas onCreated={({gl}) => saveCanvasRef('monitor6')(gl.domElement)}>
                   <CopilotVisualization />
                 </Canvas>
               </div>
@@ -366,7 +420,7 @@ const Homepage: React.FC = () => {
 
       {/* Contact Section */}
       <section 
-        ref={el => sectionRefs.current['contact'] = el}
+        ref={el => sectionRefs.current['contact'] = el as HTMLDivElement}
         className="min-h-screen py-24 bg-gradient-to-b from-yellow-900 to-black text-white"
       >
         <div className="container mx-auto px-4 text-center">
@@ -433,6 +487,8 @@ const Homepage: React.FC = () => {
 
 export default Homepage;
 
-declare module './particle_effects' {
-  export const App: React.FC;
+// Module declarations for components that don't have TypeScript types
+declare module './components/particle_effects' {
+  // Use a different name in the declaration to avoid conflicts
+  export const App: React.ComponentType;
 }
