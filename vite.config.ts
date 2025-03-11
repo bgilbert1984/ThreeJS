@@ -12,10 +12,6 @@ export default defineConfig({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   esbuild: {
-    loader: {
-      '.js': 'jsx',
-      '.jsx': 'jsx'
-    },
     jsxFactory: 'React.createElement',
     jsxFragment: 'React.Fragment'
   },
@@ -48,6 +44,10 @@ export default defineConfig({
     force: true,
     esbuildOptions: {
       target: 'esnext',
+      loader: {
+        '.js': 'jsx',
+        '.jsx': 'jsx'
+      }
     },
   },
   clearScreen: false,

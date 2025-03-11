@@ -23,6 +23,6 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src", "app/page.tsx", "app/layout.tsx"],
+  "include": ["src", "src/app/page.tsx", "src/app/layout.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,5 +1,5 @@
 // src/components/LlamaCore.tsx
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -18,7 +18,21 @@ type GLTFResult = {
 
 export const LlamaCore: React.FC = () => {
     const group = useRef<THREE.Group>(null!); // Use non-null assertion
-    const { nodes, materials } = useGLTF('/Llama.glb') as unknown as GLTFResult;
+    const [modelError, setModelError] = useState(false);
+    
+    // Try to load the model, but use error handling to provide a fallback
+    let nodes: any = {};
+    let materials: any = {};
+    
+    try {
+        // Attempt to load the model, with error handling
+        const gltf = useGLTF('/Llama.glb') as unknown as GLTFResult;
+        nodes = gltf.nodes;
+        materials = gltf.materials;
+    } catch (error) {
+        // If model fails to load, we'll use the fallback primitive shapes
+        if (!modelError) setModelError(true);
+    }
 
     const [health, setHealth] = React.useState(1); // Full health initially
 
@@ -39,10 +53,14 @@ export const LlamaCore: React.FC = () => {
 
             const targetColor = new THREE.Color();
             targetColor.lerpColors(new THREE.Color(1, 0, 0), new THREE.Color(0, 1, 0), adjustedHealth);
-            // Update Llama's color based on health. Lerp between red and green.
-            materials.lambert2SG.color.copy(targetColor);  // Use the material from useGLTF
-            materials.lambert2SG.opacity = adjustedHealth;
-            materials.lambert2SG.transparent = true;
+            
+            // If we have the real model material, update it
+            if (!modelError && materials.lambert2SG) {
+                // Update Llama's color based on health. Lerp between red and green.
+                materials.lambert2SG.color.copy(targetColor);  // Use the material from useGLTF
+                materials.lambert2SG.opacity = adjustedHealth;
+                materials.lambert2SG.transparent = true;
+            }
         }
     });
 
@@ -66,11 +84,10 @@ export const LlamaCore: React.FC = () => {
 
         if (group.current) {
             group.current.add(points);
-
         }
         particles.current = points;
 
-    }, [nodes, materials]);
+    }, []);
 
     useFrame((_, delta) => {
         if (particles.current) {
@@ -81,26 +98,56 @@ export const LlamaCore: React.FC = () => {
 
     return (
         <group ref={group} dispose={null}>
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Llama_body.geometry}
-                material={materials.lambert2SG}
-            />
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Llama_teeth.geometry}
-                material={materials.lambert2SG}
-            />
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Llama_eyes.geometry}
-                material={materials.lambert2SG}
-                position={[0.35, 1.68, 0.38]}
-                scale={0.4}
-            />
+            {!modelError ? (
+                // Render the actual GLTF model if available
+                <>
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Llama_body?.geometry}
+                        material={materials.lambert2SG}
+                    />
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Llama_teeth?.geometry}
+                        material={materials.lambert2SG}
+                    />
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Llama_eyes?.geometry}
+                        material={materials.lambert2SG}
+                        position={[0.35, 1.68, 0.38]}
+                        scale={0.4}
+                    />
+                </>
+            ) : (
+                // Fallback geometry if model doesn't load
+                <>
+                    <mesh castShadow receiveShadow position={[0, 0, 0]}>
+                        <boxGeometry args={[1, 1.5, 0.75]} />
+                        <meshStandardMaterial color={health > 0.5 ? "green" : "red"} transparent opacity={health} />
+                    </mesh>
+                    {/* Simple head */}
+                    <mesh castShadow receiveShadow position={[0, 1.3, 0.25]}>
+                        <boxGeometry args={[0.7, 0.7, 0.7]} />
+                        <meshStandardMaterial color={health > 0.5 ? "green" : "red"} transparent opacity={health} />
+                    </mesh>
+                    {/* Simple ears */}
+                    <mesh castShadow receiveShadow position={[0.4, 1.6, 0.25]}>
+                        <boxGeometry args={[0.2, 0.4, 0.1]} />
+                        <meshStandardMaterial color={health > 0.5 ? "green" : "red"} transparent opacity={health} />
+                    </mesh>
+                    <mesh castShadow receiveShadow position={[-0.4, 1.6, 0.25]}>
+                        <boxGeometry args={[0.2, 0.4, 0.1]} />
+                        <meshStandardMaterial color={health > 0.5 ? "green" : "red"} transparent opacity={health} />
+                    </mesh>
+                </>
+            )}
         </group>
     );
 };
+
+// This reduces requests when the model is already in cache
+useGLTF.preload('/Llama.glb');
