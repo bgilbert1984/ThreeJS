@@ -1,6 +1,6 @@
-// src/components/ObjectClumpScene.tsx
+// src/components/object-clump.tsx
 import * as THREE from "three";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Outlines, useTexture } from "@react-three/drei";
 import { Physics, useSphere } from "@react-three/cannon";
@@ -8,20 +8,30 @@ import { useControls } from "leva";
 
 const rfs = THREE.MathUtils.randFloatSpread;
 const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const baubleMaterial = new THREE.MeshStandardMaterial({ color: "white", roughness: 0, envMapIntensity: 1 });
+const baubleMaterial = new THREE.MeshStandardMaterial({ 
+  color: "white", 
+  roughness: 0, 
+  envMapIntensity: 1 
+});
 
-// Create an inner component that contains the scene content - no Canvas wrapper
+// Scene component without Canvas wrapper
 export const ObjectClumpScene: React.FC = () => {
   return (
     <>
       <ambientLight intensity={0.5} />
       <color attach="background" args={["#dfdfdf"]} />
-      <spotLight intensity={1} angle={0.2} penumbra={1} position={[30, 30, 30]} castShadow shadow-mapSize={[512, 512]} />
+      <spotLight 
+        intensity={1} 
+        angle={0.2} 
+        penumbra={1} 
+        position={[30, 30, 30]} 
+        castShadow 
+        shadow-mapSize={[512, 512]} 
+      />
       <Physics gravity={[0, 2, 0]} iterations={10}>
         <Pointer />
         <Clump />
       </Physics>
-      {/* Environment and EffectComposer removed for simplicity while debugging */}
     </>
   );
 };
@@ -31,13 +41,29 @@ interface ClumpProps {
 }
 
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }: ClumpProps) {
-  const { outlines } = useControls({ outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 } });
+  const { outlines } = useControls({ 
+    outlines: { value: 0.01, step: 0.01, min: 0, max: 0.05 } 
+  });
   
-  // Try to load texture with error handling
-  let textureProp = {};
+  // Handle texture loading safely
+  const [textureLoaded, setTextureLoaded] = useState(false);
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+  
+  // Try to load texture
   try {
-    const texture = useTexture("/cross.jpg");
-    textureProp = { 'material-map': texture };
+    // Custom hook to safely load texture
+    const loadedTexture = useTexture("/assets/cross.jpg", 
+      // Success callback
+      () => {
+        setTextureLoaded(true);
+        setTexture(loadedTexture);
+      },
+      // Error callback
+      (error) => {
+        console.log("Texture loading error handled gracefully:", error);
+        setTextureLoaded(false);
+      }
+    );
   } catch (error) {
     console.log("Texture loading error handled gracefully:", error);
     // Continue without texture
@@ -73,7 +99,8 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
       castShadow 
       receiveShadow 
       args={[sphereGeometry, baubleMaterial, 40]} 
-      {...textureProp}
+      // Only apply texture if loaded successfully
+      {...(textureLoaded && texture ? { 'material-map': texture } : {})}
     >
       <Outlines thickness={outlines} />
     </instancedMesh>
