@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import './components/three-extend.ts'; // Corrected file extension
 
 // Import all visualization components
 import { LlamaCore } from './components/LlamaCore';
-import { App as ParticleEffectsApp } from './components/particle_effects';
 import { ObjectClumpScene } from './components/object-clump'; // Import the scene-only version to avoid nested Canvas issues
 import { Nodes, Node } from './components/Nodes';
+import { ParticleEffects } from './components/particle_effects';
 import { 
   ProcessingLoadBar,
   SynapticConnections,
@@ -121,6 +122,31 @@ const Homepage: React.FC = () => {
 
   return (
     <div className="homepage">
+      {/* Main scene */}
+      <div id="main-scene" className="scene-container">
+        <Canvas
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance',
+            failIfMajorPerformanceCaveat: true,
+            // Limit concurrent contexts
+            preserveDrawingBuffer: false,
+            // Enable context loss recovery
+            logarithmicDepthBuffer: false,
+          }}
+          // Limit frame updates when not in view
+          frameloop="demand"
+          // Disable depth buffer when not needed
+          flat={true}
+          data-testid="main-scene-canvas"
+        >
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} />
+          <LlamaCore />
+          <OrbitControls enableDamping dampingFactor={0.05} />
+        </Canvas>
+      </div>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-75 z-50 text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
@@ -145,10 +171,26 @@ const Homepage: React.FC = () => {
         className="h-screen flex flex-col items-center justify-center relative bg-gray-900 text-white"
       >
         <div className="absolute inset-0">
-          <Canvas onCreated={({gl}) => saveCanvasRef('intro')(gl.domElement)}>
+          <Canvas
+            gl={{
+              antialias: true,
+              alpha: true,
+              powerPreference: 'high-performance',
+              failIfMajorPerformanceCaveat: true,
+              // Limit concurrent contexts
+              preserveDrawingBuffer: false,
+              // Enable context loss recovery
+              logarithmicDepthBuffer: false,
+            }}
+            // Limit frame updates when not in view
+            frameloop="demand"
+            // Disable depth buffer when not needed
+            flat={true}
+            onCreated={({gl}) => saveCanvasRef('intro')(gl.domElement)}
+          >
             <OrbitControls enableZoom={false} />
             <ambientLight intensity={0.5} />
-            <ParticleEffectsApp />
+            <ParticleEffects />
           </Canvas>
         </div>
         <div className="container mx-auto text-center z-10 p-8 bg-black bg-opacity-50 rounded-lg">
@@ -189,7 +231,25 @@ const Homepage: React.FC = () => {
               </div>
             </div>
             <div className="h-[500px]">
-              <Canvas camera={{ position: [0, 0, 10] }} onCreated={({gl}) => saveCanvasRef('llama')(gl.domElement)}>
+              <Canvas
+                gl={{
+                  antialias: true,
+                  alpha: true,
+                  powerPreference: 'high-performance',
+                  failIfMajorPerformanceCaveat: true,
+                  // Limit concurrent contexts
+                  preserveDrawingBuffer: false,
+                  // Enable context loss recovery
+                  logarithmicDepthBuffer: false,
+                }}
+                // Limit frame updates when not in view
+                frameloop="demand"
+                // Disable depth buffer when not needed
+                flat={true}
+                camera={{ position: [0, 0, 10] }}
+                onCreated={({gl}) => saveCanvasRef('llama')(gl.domElement)}
+                data-testid="llamacore-canvas"
+              >
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} />
                 <OrbitControls />
@@ -208,8 +268,24 @@ const Homepage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="h-[500px] order-2 lg:order-1">
-              <Canvas onCreated={({gl}) => saveCanvasRef('particles')(gl.domElement)}>
-                <ParticleEffectsApp />
+              <Canvas
+                gl={{
+                  antialias: true,
+                  alpha: true,
+                  powerPreference: 'high-performance',
+                  failIfMajorPerformanceCaveat: true,
+                  // Limit concurrent contexts
+                  preserveDrawingBuffer: false,
+                  // Enable context loss recovery
+                  logarithmicDepthBuffer: false,
+                }}
+                // Limit frame updates when not in view
+                frameloop="demand"
+                // Disable depth buffer when not needed
+                flat={true}
+                onCreated={({gl}) => saveCanvasRef('particles')(gl.domElement)}
+              >
+                <ParticleEffects />
               </Canvas>
             </div>
             <div className="p-6 order-1 lg:order-2">
@@ -252,9 +328,22 @@ const Homepage: React.FC = () => {
               </div>
             </div>
             <div className="h-[500px]">
-              <Canvas 
+              <Canvas
+                gl={{
+                  antialias: true,
+                  alpha: true,
+                  powerPreference: 'high-performance',
+                  failIfMajorPerformanceCaveat: true,
+                  // Limit concurrent contexts
+                  preserveDrawingBuffer: false,
+                  // Enable context loss recovery
+                  logarithmicDepthBuffer: false,
+                }}
+                // Limit frame updates when not in view
+                frameloop="demand"
+                // Disable depth buffer when not needed
+                flat={true}
                 shadows 
-                gl={{ antialias: false }} 
                 dpr={[1, 1.5]} 
                 camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
                 onCreated={({gl}) => saveCanvasRef('objects')(gl.domElement)}
@@ -274,10 +363,25 @@ const Homepage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="h-[500px] order-2 lg:order-1">
-              <Canvas 
+              <Canvas
+                gl={{
+                  antialias: true,
+                  alpha: true,
+                  powerPreference: 'high-performance',
+                  failIfMajorPerformanceCaveat: true,
+                  // Limit concurrent contexts
+                  preserveDrawingBuffer: false,
+                  // Enable context loss recovery
+                  logarithmicDepthBuffer: false,
+                }}
+                // Limit frame updates when not in view
+                frameloop="demand"
+                // Disable depth buffer when not needed
+                flat={true}
                 orthographic 
                 camera={{ zoom: 80, position: [0, 0, 100] }}
                 onCreated={({gl}) => saveCanvasRef('nodes')(gl.domElement)}
+                data-testid="network-vis-canvas"
               >
                 <color attach="background" args={['#1a1a2e']} />
                 <ambientLight intensity={0.8} />
@@ -326,7 +430,23 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Processing Load</h3>
               <div className="h-[200px]">
-                <Canvas onCreated={({gl}) => saveCanvasRef('monitor1')(gl.domElement)}>
+                <Canvas
+                  gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance',
+                    failIfMajorPerformanceCaveat: true,
+                    // Limit concurrent contexts
+                    preserveDrawingBuffer: false,
+                    // Enable context loss recovery
+                    logarithmicDepthBuffer: false,
+                  }}
+                  // Limit frame updates when not in view
+                  frameloop="demand"
+                  // Disable depth buffer when not needed
+                  flat={true}
+                  onCreated={({gl}) => saveCanvasRef('monitor1')(gl.domElement)}
+                >
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <ProcessingLoadBar value={0.7} label="Processing Load" color="red" />
@@ -342,7 +462,24 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Synaptic Connections</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,5]}} onCreated={({gl}) => saveCanvasRef('monitor2')(gl.domElement)}>
+                <Canvas
+                  gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance',
+                    failIfMajorPerformanceCaveat: true,
+                    // Limit concurrent contexts
+                    preserveDrawingBuffer: false,
+                    // Enable context loss recovery
+                    logarithmicDepthBuffer: false,
+                  }}
+                  // Limit frame updates when not in view
+                  frameloop="demand"
+                  // Disable depth buffer when not needed
+                  flat={true}
+                  camera={{position: [0,0,5]}}
+                  onCreated={({gl}) => saveCanvasRef('monitor2')(gl.domElement)}
+                >
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <SynapticConnections value={0.5} label="Synaptic Connections" />
@@ -358,7 +495,24 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Data Flow</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,5]}} onCreated={({gl}) => saveCanvasRef('monitor3')(gl.domElement)}>
+                <Canvas
+                  gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance',
+                    failIfMajorPerformanceCaveat: true,
+                    // Limit concurrent contexts
+                    preserveDrawingBuffer: false,
+                    // Enable context loss recovery
+                    logarithmicDepthBuffer: false,
+                  }}
+                  // Limit frame updates when not in view
+                  frameloop="demand"
+                  // Disable depth buffer when not needed
+                  flat={true}
+                  camera={{position: [0,0,5]}}
+                  onCreated={({gl}) => saveCanvasRef('monitor3')(gl.domElement)}
+                >
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <DataFlow value={0.8} label="Data Flow" />
@@ -374,7 +528,24 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Anticipation Index</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,3]}} onCreated={({gl}) => saveCanvasRef('monitor4')(gl.domElement)}>
+                <Canvas
+                  gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance',
+                    failIfMajorPerformanceCaveat: true,
+                    // Limit concurrent contexts
+                    preserveDrawingBuffer: false,
+                    // Enable context loss recovery
+                    logarithmicDepthBuffer: false,
+                  }}
+                  // Limit frame updates when not in view
+                  frameloop="demand"
+                  // Disable depth buffer when not needed
+                  flat={true}
+                  camera={{position: [0,0,3]}}
+                  onCreated={({gl}) => saveCanvasRef('monitor4')(gl.domElement)}
+                >
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <AnticipationIndex value={0.3} label="Anticipation Index" />
@@ -390,7 +561,24 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Prompt Completion</h3>
               <div className="h-[200px]">
-                <Canvas camera={{position: [0,0,3]}} onCreated={({gl}) => saveCanvasRef('monitor5')(gl.domElement)}>
+                <Canvas
+                  gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance',
+                    failIfMajorPerformanceCaveat: true,
+                    // Limit concurrent contexts
+                    preserveDrawingBuffer: false,
+                    // Enable context loss recovery
+                    logarithmicDepthBuffer: false,
+                  }}
+                  // Limit frame updates when not in view
+                  frameloop="demand"
+                  // Disable depth buffer when not needed
+                  flat={true}
+                  camera={{position: [0,0,3]}}
+                  onCreated={({gl}) => saveCanvasRef('monitor5')(gl.domElement)}
+                >
                   <ambientLight />
                   <pointLight position={[10, 10, 10]} />
                   <PromptCompletionProbability value={.9} label='Prompt Completion' color="magenta"/>
@@ -406,7 +594,23 @@ const Homepage: React.FC = () => {
             <div className="bg-black bg-opacity-30 rounded-lg p-6">
               <h3 className="text-xl font-medium mb-4">Copilot Visualization</h3>
               <div className="h-[200px]">
-                <Canvas onCreated={({gl}) => saveCanvasRef('monitor6')(gl.domElement)}>
+                <Canvas
+                  gl={{
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance',
+                    failIfMajorPerformanceCaveat: true,
+                    // Limit concurrent contexts
+                    preserveDrawingBuffer: false,
+                    // Enable context loss recovery
+                    logarithmicDepthBuffer: false,
+                  }}
+                  // Limit frame updates when not in view
+                  frameloop="demand"
+                  // Disable depth buffer when not needed
+                  flat={true}
+                  onCreated={({gl}) => saveCanvasRef('monitor6')(gl.domElement)}
+                >
                   <CopilotVisualization />
                 </Canvas>
               </div>
@@ -487,8 +691,3 @@ const Homepage: React.FC = () => {
 
 export default Homepage;
 
-// Module declarations for components that don't have TypeScript types
-declare module './components/particle_effects' {
-  // Use a different name in the declaration to avoid conflicts
-  export const App: React.ComponentType;
-}

@@ -3,15 +3,25 @@ import React, { useMemo, useRef, forwardRef, useImperativeHandle } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Line } from '@react-three/drei';
 import { NodeRef } from '../types';
+import '../components/three-extend';
 
 interface NodeProps {
-  color: string;
+  color?: string;
   name: string;
   position: [number, number, number];
-  connectedTo: React.RefObject<NodeRef>[];
+  connectedTo?: string[];
 }
 
-// Node Component (Functional, using forwardRef)
+interface NodesProps {
+  children?: React.ReactNode;
+  nodeRefs?: React.RefObject<any>[];
+}
+
+interface NodesContentProps {
+  children?: React.ReactNode;
+}
+
+// Node Component
 export const Node = forwardRef<NodeRef, NodeProps>(({ 
   color = 'white', 
   name, 
@@ -23,7 +33,7 @@ export const Node = forwardRef<NodeRef, NodeProps>(({
   useImperativeHandle(ref, () => ({
     name,
     get position() {
-      return meshRef.current!.position;
+      return meshRef.current ? meshRef.current.position : new THREE.Vector3();
     },
     updatePosition: (newPosition: [number, number, number]) => {
       if (meshRef.current) {
@@ -47,47 +57,23 @@ export const Node = forwardRef<NodeRef, NodeProps>(({
 
 Node.displayName = 'Node';
 
-interface NodesProps {
-  children: React.ReactNode;
-  nodeRefs: React.RefObject<NodeRef>[];
-}
-
-// Nodes Component (Functional)
-export const Nodes = ({ children, nodeRefs }: NodesProps) => {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  // Generate lines based on the node refs directly
-  const lines = useMemo(() => {
-    const connections: JSX.Element[] = [];
-    
-    // Go through each node ref and check for connections
-    React.Children.forEach(children, (child, childIndex) => {
-      if (React.isValidElement(child) && child.props.connectedTo) {
-        child.props.connectedTo.forEach((targetRef: React.RefObject<NodeRef>, i: number) => {
-          if (targetRef.current && nodeRefs[childIndex].current) {
-            connections.push(
-              <Line
-                key={`${childIndex}-${i}`}
-                points={[
-                  nodeRefs[childIndex].current!.position, 
-                  targetRef.current.position
-                ]}
-                color="grey"
-                lineWidth={2}
-              />
-            );
-          }
-        });
-      }
-    });
-    
-    return connections;
-  }, [children, nodeRefs]);
-
+// Inner component without Canvas
+export const NodesContent: React.FC<NodesContentProps> = ({ children }) => {
   return (
-    <group ref={groupRef}>
+    <group data-testid="network-vis-canvas">
+      <color attach="background" args={['#1a1a2e']} />
+      <ambientLight intensity={0.8} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       {children}
-      {lines}
     </group>
+  );
+};
+
+// Wrapper component for actual use
+export const Nodes: React.FC<NodesProps> = ({ children, nodeRefs }) => {
+  return (
+    <NodesContent>
+      {children}
+    </NodesContent>
   );
 };

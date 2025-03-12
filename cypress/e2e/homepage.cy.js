@@ -46,20 +46,17 @@ describe('Homepage ThreeJS Tests', () => {
   });
 
   it('should interact with the canvas via orbit controls', () => {
-    // Since we can't directly test Three.js rendering, we'll simulate interaction
-    // with the canvas to test the orbit controls
+    // Get the main scene canvas specifically
+    cy.get('[data-testid="main-scene-canvas"]').as('mainCanvas');
     
     // First click on canvas to focus
-    cy.canvasClick();
+    cy.get('@mainCanvas').click();
     
     // Simulate dragging on the canvas to rotate the view
-    cy.get('canvas')
-      .trigger('mousedown', 200, 200)
-      .trigger('mousemove', 300, 250)
+    cy.get('@mainCanvas')
+      .trigger('mousedown', { clientX: 200, clientY: 200 })
+      .trigger('mousemove', { clientX: 300, clientY: 250 })
       .trigger('mouseup');
-    
-    // We can't assert on 3D state directly, but at least we can verify
-    // the actions don't cause errors
   });
 
   it('should load monitor components', () => {

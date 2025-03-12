@@ -4,7 +4,7 @@
 pkill -f "vite" > /dev/null 2>&1 || true
 
 # Start the development server in the background with the specific port
-VITE_PORT=5174 npm run dev &
+VITE_PORT=5173 npm run dev &
 SERVER_PID=$!
 
 echo "Starting dev server (PID: $SERVER_PID)..."

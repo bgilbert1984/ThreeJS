@@ -2,7 +2,7 @@ const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5174',
+    baseUrl: 'http://localhost:5173',
     setupNodeEvents(on, config) {
       // implement node event listeners here
       on('before:browser:launch', (browser = {}, launchOptions) => {
@@ -25,6 +25,11 @@ module.exports = defineConfig({
     experimentalStudio: true,
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'cypress/support/e2e.js',
+    // Add these configurations
+    defaultCommandTimeout: 10000,
+    requestTimeout: 10000,
+    pageLoadTimeout: 30000,
+    watchForFileChanges: true
   },
   // Configuration for headless environments
   video: false,

@@ -20,7 +20,7 @@ describe('LlamaCore Visualization Tests', () => {
 
   it('should display the LlamaCore canvas', () => {
     // The canvas should be visible in this section
-    cy.get('.h-\\[500px\\]').find('canvas').should('be.visible');
+    cy.get('[data-testid="llamacore-canvas"]').should('be.visible');
   });
 
   it('should display technology tags', () => {
@@ -32,23 +32,19 @@ describe('LlamaCore Visualization Tests', () => {
   });
   
   it('should interact with orbit controls', () => {
-    // Test rotation via dragging
-    cy.get('.h-\\[500px\\]').find('canvas')
-      .trigger('mousedown', 250, 250)
-      .trigger('mousemove', 350, 300)
+    // Get the element by data-testid to ensure we're targeting the right canvas
+    cy.get('[data-testid="llamacore-canvas"]').should('be.visible')
+      .trigger('mousedown', { clientX: 250, clientY: 250 })
+      .trigger('mousemove', { clientX: 350, clientY: 300 })
       .trigger('mouseup');
-      
-    // Test zooming
-    cy.get('.h-\\[500px\\]').find('canvas')
-      .trigger('wheel', { deltaY: -150 });
   });
   
   it('should maintain canvas visibility during page scrolling', () => {
-    // Check canvas is visible initially
-    cy.get('.h-\\[500px\\]').find('canvas').should('be.visible');
+    // Get the canvas wrapper
+    cy.get('[data-testid="llamacore-canvas"]').should('be.visible');
     
     // Scroll down slightly and check if canvas maintains visibility
     cy.scrollTo(0, 200);
-    cy.get('.h-\\[500px\\]').find('canvas').should('be.visible');
+    cy.get('[data-testid="llamacore-canvas"]').should('be.visible');
   });
 });

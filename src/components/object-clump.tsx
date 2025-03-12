@@ -1,4 +1,5 @@
 import * as THREE from "three"
+import { useState, useEffect } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Outlines, Environment, useTexture } from "@react-three/drei"
 import { Physics, useSphere } from "@react-three/cannon"
@@ -20,7 +21,8 @@ export const ObjectClumpScene: React.FC = () => {
         <Pointer />
         <Clump />
       </Physics>
-      <Environment files="/adamsbridge.hdr" />
+      {/* Disable environment for now to avoid HDR error */}
+      {/* <Environment files="/assets/adamsbridge.hdr" /> */}
       <EffectComposer disableNormalPass multisampling={0}>
         <N8AO halfRes color="black" aoRadius={2} intensity={1} aoSamples={6} denoiseSamples={4} />
         <Bloom mipmapBlur levels={7} intensity={1} />
@@ -46,7 +48,34 @@ interface ClumpProps {
 
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }: ClumpProps) {
   const { outlines } = useControls({ outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 } })
-  const texture = useTexture("/cross.jpg")
+  const [textureError, setTextureError] = useState(false);
+  const [defaultMaterial, setDefaultMaterial] = useState<THREE.Material | null>(null);
+  
+  // Try to load texture but have a fallback
+  let texture;
+  try {
+    texture = useTexture("/assets/cross.jpg", (error) => {
+      console.log("Error loading texture:", error);
+      setTextureError(true);
+    });
+  } catch (error) {
+    console.log("Caught texture loading error:", error);
+    setTextureError(true);
+  }
+
+  // Create a fallback material
+  useEffect(() => {
+    if (textureError) {
+      const material = new THREE.MeshStandardMaterial({ 
+        color: "#4a90e2", 
+        roughness: 0.5, 
+        metalness: 0.5,
+        wireframe: false 
+      });
+      setDefaultMaterial(material);
+    }
+  }, [textureError]);
+  
   const [ref, api] = useSphere(() => ({ args: [1], mass: 1, angularDamping: 0.1, linearDamping: 0.65, position: [rfs(20), rfs(20), rfs(20)] }))
   
   useFrame(() => {
@@ -63,7 +92,7 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
   })
   
   return (
-    <instancedMesh ref={ref} castShadow receiveShadow args={[sphereGeometry, baubleMaterial, 40]} material-map={texture}>
+    <instancedMesh ref={ref} castShadow receiveShadow args={[sphereGeometry, baubleMaterial, 40]} material={textureError ? defaultMaterial : undefined} material-map={!textureError ? texture : undefined}>
       <Outlines thickness={outlines} />
     </instancedMesh>
   )
