@@ -1,7 +1,7 @@
 // src/components/object-clump.tsx
 import * as THREE from "three";
-import { useState, useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useState } from "react";
+import { useFrame, useThree, Canvas } from "@react-three/fiber";
 import { Outlines, useTexture } from "@react-three/drei";
 import { Physics, useSphere } from "@react-three/cannon";
 import { useControls } from "leva";
@@ -36,11 +36,21 @@ export const ObjectClumpScene: React.FC = () => {
   );
 };
 
-interface ClumpProps {
-  [key: string]: any;
+// Wrapped component with Canvas for standalone usage
+export const App: React.FC = () => {
+  return (
+    <Canvas>
+      <ObjectClumpScene />
+    </Canvas>
+  );
 }
 
-function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }: ClumpProps) {
+interface ClumpProps {
+  mat?: THREE.Matrix4;
+  vec?: THREE.Vector3;
+}
+
+function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3() }: ClumpProps) {
   const { outlines } = useControls({ 
     outlines: { value: 0.01, step: 0.01, min: 0, max: 0.05 } 
   });
@@ -52,19 +62,12 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
   // Try to load texture
   try {
     // Custom hook to safely load texture
-    const loadedTexture = useTexture("/assets/cross.jpg", 
-      // Success callback
-      () => {
-        setTextureLoaded(true);
-        setTexture(loadedTexture);
-      },
-      // Error callback
-      (error) => {
-        console.log("Texture loading error handled gracefully:", error);
-        setTextureLoaded(false);
-      }
-    );
-  } catch (error) {
+    const loadedTexture = useTexture("/assets/cross.jpg");
+    if (loadedTexture) {
+      setTextureLoaded(true);
+      setTexture(loadedTexture);
+    }
+  } catch (error: unknown) {
     console.log("Texture loading error handled gracefully:", error);
     // Continue without texture
   }

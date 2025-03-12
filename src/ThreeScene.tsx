@@ -64,48 +64,49 @@ const ThreeScene: React.FC = () => {
 
     // Position the camera
     camera.position.z = 5;
-
-    // Animation loop with error handling
+    
+    // Set up WebGL context loss/recovery handlers
+    setupContextHandler(renderer);
+    
+    // Animation function
     const animate = () => {
       if (contextLost) return; // Don't animate when context is lost
       
-      try {
-        const id = requestAnimationFrame(animate);
-        setAnimationFrameId(id);
-        
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      } catch (error) {
-        console.error('Animation error:', error);
-      }
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      
+      renderer.render(scene, camera);
+      const id = requestAnimationFrame(animate);
+      setAnimationFrameId(id);
     };
-
-    // Set up context handler with our Three.js objects
-    setupContextHandler(renderer, scene, camera, animate);
-
-    // Start animation
+    
+    // Start animation loop
     animate();
-
+    
     // Handle window resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
+    
     window.addEventListener('resize', handleResize);
-
-    // Cleanup
+    
+    // Cleanup function
     return () => {
+      console.log('ThreeScene: Cleaning up resources');
       window.removeEventListener('resize', handleResize);
       
-      // Use our cleanup function from the hook
+      // Clean up WebGL context handlers
       cleanupContextHandler();
       
-      // Remove canvas from DOM if not already removed
-      if (mountRef.current && renderer.domElement.parentElement === mountRef.current) {
+      // Remove the canvas from the DOM
+      if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);
       }
+      
+      // Dispose renderer
+      renderer.dispose();
     };
   }, [setupContextHandler, cleanupContextHandler, registerResources, contextLost, setAnimationFrameId]);
 
