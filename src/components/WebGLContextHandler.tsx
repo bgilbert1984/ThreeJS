@@ -1,96 +1,90 @@
 // src/components/WebGLContextHandler.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import * as THREE from 'three';
+import WebGLMemoryUtils from '../utils/WebGLMemoryUtils';
 
 interface WebGLContextHandlerProps {
   children: React.ReactNode;
+  onError?: (error: Error) => void;
 }
 
 /**
  * Component that handles WebGL context loss and recovery
  * Wrap your Three.js components with this handler to prevent crashes
  */
-const WebGLContextHandler: React.FC<WebGLContextHandlerProps> = ({ children }) => {
-  const [contextLost, setContextLost] = useState(false);
-  
+const WebGLContextHandler: React.FC<WebGLContextHandlerProps> = ({ children, onError }) => {
   useEffect(() => {
-    // Create an overlay div for showing error messages
-    const overlay = document.createElement('div');
-    overlay.style.display = 'none';
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.75)';
-    overlay.style.color = 'white';
-    overlay.style.zIndex = '9999';
-    overlay.style.display = 'flex';
-    overlay.style.alignItems = 'center';
-    overlay.style.justifyContent = 'center';
-    overlay.style.flexDirection = 'column';
-    overlay.style.padding = '20px';
-    overlay.style.textAlign = 'center';
-    overlay.innerHTML = `
-      <h3 style="margin-top: 0;">WebGL Context Lost</h3>
-      <p>Attempting to recover the 3D rendering...</p>
-      <div style="width: 50px; height: 50px; border: 3px solid #f3f3f3; border-top: 3px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-      <style>
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      </style>
-    `;
-    document.body.appendChild(overlay);
-    overlay.style.display = 'none';
+    // Check for WebGL support
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
 
-    // Handle context loss events
+    if (!gl) {
+      const error = new Error('WebGL not supported');
+      if (onError) onError(error);
+      return;
+    }
+
+    // Set up context loss handler
     const handleContextLost = (event: Event) => {
-      event.preventDefault(); // Important: allows for potential recovery
-      console.warn('WebGL context lost - attempting to recover');
-      setContextLost(true);
-      overlay.style.display = 'flex';
+      event.preventDefault();
+      console.warn('WebGL context lost, pausing rendering...');
       
-      // After a short delay, try reloading the page
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      // Force cleanup when context is lost
+      WebGLMemoryUtils.forceGarbageCollection();
     };
 
-    // Handle context restored events
+    // Context restored handler
     const handleContextRestored = () => {
-      console.log('WebGL context restored successfully');
-      setContextLost(false);
-      overlay.style.display = 'none';
+      console.log('WebGL context restored, resuming...');
     };
 
-    // Add global event listeners
-    window.addEventListener('webglcontextlost', handleContextLost);
-    window.addEventListener('webglcontextrestored', handleContextRestored);
+    // Add handlers with passive option where appropriate
+    const addEventListeners = (element: HTMLCanvasElement) => {
+      element.addEventListener('webglcontextlost', handleContextLost);
+      element.addEventListener('webglcontextrestored', handleContextRestored);
+      
+      // Add passive wheel listener
+      element.addEventListener('wheel', () => {}, { passive: true });
+    };
 
-    // Find all canvas elements and add listeners
-    const canvasElements = document.querySelectorAll('canvas');
-    canvasElements.forEach(canvas => {
-      canvas.addEventListener('webglcontextlost', handleContextLost);
-      canvas.addEventListener('webglcontextrestored', handleContextRestored);
+    // Find and set up all WebGL canvases
+    const setupCanvases = () => {
+      document.querySelectorAll('canvas').forEach(canvas => {
+        const context = canvas.getContext('webgl2') || canvas.getContext('webgl');
+        if (context) {
+          addEventListeners(canvas);
+        }
+      });
+    };
+
+    // Initial setup
+    setupCanvases();
+
+    // Watch for new canvases
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node instanceof HTMLCanvasElement) {
+            addEventListeners(node);
+          }
+        });
+      });
     });
 
-    // Clean up
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Cleanup
     return () => {
-      document.body.removeChild(overlay);
-      window.removeEventListener('webglcontextlost', handleContextLost);
-      window.removeEventListener('webglcontextrestored', handleContextRestored);
-      
-      canvasElements.forEach(canvas => {
+      observer.disconnect();
+      document.querySelectorAll('canvas').forEach(canvas => {
         canvas.removeEventListener('webglcontextlost', handleContextLost);
         canvas.removeEventListener('webglcontextrestored', handleContextRestored);
       });
     };
-  }, []);
-
-  if (contextLost) {
-    return null; // Don't render children when context is lost
-  }
+  }, [onError]);
 
   return <>{children}</>;
 };

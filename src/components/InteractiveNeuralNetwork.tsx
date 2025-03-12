@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { OptimizedOrbitControls } from './OptimizedOrbitControls';
 
 interface NeuronProps {
   position: [number, number, number];
@@ -362,10 +363,12 @@ const NeuralNetworkVisualization: React.FC<NeuralNetworkVisualizationProps> = ({
           onActivationChange={handleActivationChange}
         />
         
-        <OrbitControls 
+        <OptimizedOrbitControls 
           enableZoom={true} 
           enablePan={true} 
-          enableRotate={true} 
+          enableDamping={true} 
+          dampingFactor={0.05}
+          rotateSpeed={0.7}
           minDistance={5}
           maxDistance={20}
         />

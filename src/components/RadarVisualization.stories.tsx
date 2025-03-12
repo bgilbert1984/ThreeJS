@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OptimizedOrbitControls } from './OptimizedOrbitControls';
 
 import { RadarVisualization } from './RadarVisualization';
 
@@ -20,7 +20,11 @@ const meta: Meta<typeof RadarVisualization> = {
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} intensity={0.8} />
           <Story />
-          <OrbitControls />
+          <OptimizedOrbitControls 
+            enableDamping={true}
+            dampingFactor={0.1}
+            rotateSpeed={0.7}
+          />
         </Canvas>
       </div>
     ),

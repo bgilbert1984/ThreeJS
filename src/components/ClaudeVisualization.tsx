@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OptimizedOrbitControls } from './OptimizedOrbitControls';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -40,7 +40,7 @@ const NeuralNetworkVisualization: React.FC = () => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const composerRef = useRef<EffectComposer | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const controlsRef = useRef<OrbitControls | null>(null);
+  const controlsRef = useRef<OptimizedOrbitControls | null>(null);
   const signalsRef = useRef<NeuronSignal[]>([]);
   const signalMeshesRef = useRef<THREE.Mesh[]>([]);
   const neuronPositionsRef = useRef<NeuronPosition[][][]>([]);
@@ -498,7 +498,7 @@ const NeuralNetworkVisualization: React.FC = () => {
     scene.add(directionalLight);
     
     // Add orbit controls
-    const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OptimizedOrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.rotateSpeed = 0.5;
@@ -797,7 +797,7 @@ const Scene: React.FC<{
     <>
       <ambientLight intensity={0.4} />
       <directionalLight position={[10, 10, 10]} intensity={1} />
-      <OrbitControls 
+      <OptimizedOrbitControls 
         enableDamping 
         dampingFactor={0.05} 
         rotateSpeed={0.5} 

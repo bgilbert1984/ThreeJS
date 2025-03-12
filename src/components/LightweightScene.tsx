@@ -1,9 +1,9 @@
 // src/components/LightweightScene.tsx
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import EnhancedWebGLHandler from './EnhancedWebGLHandler';
+import { OptimizedOrbitControls } from './OptimizedOrbitControls';
 
 // Simple cube component with minimal resource usage
 const SimpleCube: React.FC = () => {
@@ -34,7 +34,7 @@ const SceneContent: React.FC = () => {
       <ambientLight intensity={0.3} />
       <directionalLight position={[1, 2, 3]} intensity={0.5} />
       <SimpleCube />
-      <OrbitControls 
+      <OptimizedOrbitControls 
         enableDamping={false} 
         enableZoom={true} 
         enablePan={false}
