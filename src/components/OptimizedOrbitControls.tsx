@@ -22,14 +22,33 @@ export const OptimizedOrbitControls: React.FC<OptimizedOrbitControlsProps> = ({
   minDistance = 2,
   maxDistance = 20,
 }) => {
-  const { gl, camera } = useThree();
+  const { gl } = useThree();
 
   useEffect(() => {
-    // Add passive wheel listener to the canvas
+    // Get all wheel event listeners and make them passive
     const canvas = gl.domElement;
+    const originalAddEventListener = canvas.addEventListener;
+    canvas.addEventListener = function(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions
+    ) {
+      if (type === 'wheel') {
+        if (typeof options === 'boolean') {
+          options = { passive: true };
+        } else if (typeof options === 'object') {
+          options = { ...options, passive: true };
+        }
+      }
+      return originalAddEventListener.call(this, type, listener, options);
+    };
+
+    // Set up initial passive wheel listener
     canvas.addEventListener('wheel', () => {}, { passive: true });
 
     return () => {
+      // Cleanup: Restore original addEventListener
+      canvas.addEventListener = originalAddEventListener;
       canvas.removeEventListener('wheel', () => {});
     };
   }, [gl]);
