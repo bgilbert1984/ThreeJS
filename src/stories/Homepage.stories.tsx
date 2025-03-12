@@ -8,6 +8,7 @@ import NeuralNetworkVisualization from '../components/ClaudeVisualization';
 import GrokVisualization from '../components/GrokVisualization';
 import { ProcessingLoadBar, SynapticConnections, DataFlow, AnticipationIndex } from '../components/MonitorComponents';
 import CopilotVisualization from '../components/CopilotVisualization';
+import { OptimizedOrbitControls } from '../components/OptimizedOrbitControls';
 
 // Lazy load JavaScript components
 const ParticleEffectsApp = React.lazy(() => import('../components/particle_effects').then(m => ({ default: m.App })));
@@ -44,7 +45,7 @@ export const LlamaCoreFocus: Story = {
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           <LlamaCore />
-          <OrbitControls />
+          <OptimizedOrbitControls enablePan={false} />
         </Canvas>
       </div>
       <Homepage />
@@ -59,7 +60,11 @@ export const ParticleEffectsDemo: Story = {
       <div className="particles-panel" style={{ position: 'fixed', top: '80px', right: '20px', width: '450px', height: '350px', zIndex: 1000, border: '2px solid #6d00cc', borderRadius: '10px', overflow: 'hidden' }}>
         <Canvas>
           <LazyApp Component={ParticleEffectsApp} />
-          <OrbitControls />
+          <OptimizedOrbitControls 
+            enableDamping={true}
+            dampingFactor={0.1}
+            rotateSpeed={0.5}
+          />
         </Canvas>
       </div>
       <Homepage />
@@ -74,7 +79,11 @@ export const ObjectClumpDemo: Story = {
       <div className="physics-panel" style={{ position: 'fixed', top: '80px', right: '20px', width: '450px', height: '350px', zIndex: 1000, border: '2px solid #9900cc', borderRadius: '10px', overflow: 'hidden' }}>
         <Canvas>
           <LazyApp Component={ObjectClumpApp} />
-          <OrbitControls />
+          <OptimizedOrbitControls 
+            enablePan={false} 
+            minDistance={5} 
+            maxDistance={15}
+          />
         </Canvas>
       </div>
       <Homepage />
@@ -103,7 +112,11 @@ export const GrokVisualizationDemo: Story = {
       <div className="grok-panel" style={{ position: 'fixed', top: '80px', right: '20px', width: '450px', height: '350px', zIndex: 1000, border: '2px solid #cc0066', borderRadius: '10px', overflow: 'hidden' }}>
         <Canvas>
           <GrokVisualization />
-          <OrbitControls />
+          <OptimizedOrbitControls 
+            enableDamping={true}
+            dampingFactor={0.1}
+            rotateSpeed={0.8}
+          />
         </Canvas>
       </div>
       <Homepage />
@@ -121,7 +134,7 @@ export const MonitorComponentsDemo: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <ProcessingLoadBar value={0.7} label="Processing" color="red" />
-            <OrbitControls />
+            <OptimizedOrbitControls enablePan={false} maxDistance={5} />
           </Canvas>
         </div>
         <div className="monitor-panel" style={{ height: '200px', border: '2px solid #cc3300', borderRadius: '10px', overflow: 'hidden' }}>
@@ -129,7 +142,7 @@ export const MonitorComponentsDemo: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <SynapticConnections value={0.5} label="Connections" />
-            <OrbitControls />
+            <OptimizedOrbitControls enablePan={false} maxDistance={8} />
           </Canvas>
         </div>
         <div className="monitor-panel" style={{ height: '200px', border: '2px solid #cc6600', borderRadius: '10px', overflow: 'hidden' }}>
@@ -137,7 +150,7 @@ export const MonitorComponentsDemo: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DataFlow value={0.8} label="Data Flow" />
-            <OrbitControls />
+            <OptimizedOrbitControls enablePan={false} maxDistance={8} />
           </Canvas>
         </div>
         <div className="monitor-panel" style={{ height: '200px', border: '2px solid #cc9900', borderRadius: '10px', overflow: 'hidden' }}>
@@ -145,7 +158,7 @@ export const MonitorComponentsDemo: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <AnticipationIndex value={0.3} label="Anticipation" />
-            <OrbitControls />
+            <OptimizedOrbitControls enablePan={false} maxDistance={5} />
           </Canvas>
         </div>
       </div>
@@ -161,6 +174,13 @@ export const CopilotVisualizationDemo: Story = {
       <div className="copilot-panel" style={{ position: 'fixed', top: '80px', right: '20px', width: '450px', height: '350px', zIndex: 1000, border: '2px solid #cccc00', borderRadius: '10px', overflow: 'hidden' }}>
         <Canvas>
           <CopilotVisualization />
+          <OptimizedOrbitControls 
+            enableDamping={true}
+            dampingFactor={0.1}
+            rotateSpeed={0.7}
+            minDistance={3}
+            maxDistance={12}
+          />
         </Canvas>
       </div>
       <Homepage />

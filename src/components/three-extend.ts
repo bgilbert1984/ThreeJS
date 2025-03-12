@@ -6,11 +6,20 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 
+// Configure OrbitControls with passive event listeners
+const PassiveOrbitControls = OrbitControls;
+PassiveOrbitControls.prototype.connect = function(domElement) {
+  OrbitControls.prototype.connect.call(this, domElement);
+  // Override wheel event listener with passive option
+  domElement.removeEventListener('wheel', this.onMouseWheel);
+  domElement.addEventListener('wheel', this.onMouseWheel, { passive: true });
+};
+
 // IMPORTANT: Only extend specific classes, not the entire THREE namespace
 // This avoids conflicts and prevents the Canvas error
 extend({
   // Controls
-  OrbitControls,
+  OrbitControls: PassiveOrbitControls,
   
   // Post-processing
   EffectComposer,

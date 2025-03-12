@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OptimizedOrbitControls } from './OptimizedOrbitControls';
 import {
     ProcessingLoadBar,
     SynapticConnections,
@@ -28,7 +28,11 @@ export const ProcessingLoad: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <ProcessingLoadBar value={0.7} label="Processing Load" color="red" />
-            <OrbitControls />
+            <OptimizedOrbitControls 
+                enablePan={false}
+                maxDistance={5}
+                dampingFactor={0.1}
+            />
         </Canvas>
     ),
 };
@@ -40,7 +44,11 @@ export const SynapticConnectionsStory: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <SynapticConnections value={0.5} label="Synaptic Connections" />
-            <OrbitControls />
+            <OptimizedOrbitControls 
+                enablePan={false}
+                maxDistance={8}
+                dampingFactor={0.1}
+            />
         </Canvas>
     ),
 };
@@ -52,7 +60,11 @@ export const DataFlowStory: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <DataFlow value={0.8} label="Data Flow" />
-            <OrbitControls />
+            <OptimizedOrbitControls 
+                enablePan={false}
+                maxDistance={8}
+                dampingFactor={0.1}
+            />
         </Canvas>
     ),
 };
@@ -64,7 +76,11 @@ export const AnticipationIndexStory: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <AnticipationIndex value={0.3} label="Anticipation Index" />
-            <OrbitControls />
+            <OptimizedOrbitControls 
+                enablePan={false}
+                maxDistance={5}
+                dampingFactor={0.1}
+            />
         </Canvas>
     ),
 };
@@ -76,7 +92,11 @@ export const PromptCompletionStory: Story = {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
            <PromptCompletionProbability value={.9} label='Prompt Completion' color="magenta"/>
-            <OrbitControls />
+            <OptimizedOrbitControls 
+                enablePan={false}
+                maxDistance={5}
+                dampingFactor={0.1}
+            />
         </Canvas>
     ),
 };

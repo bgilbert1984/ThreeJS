@@ -1,9 +1,9 @@
 // src/components/BasicThreeScene.tsx
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import WebGLContextHandler from './WebGLContextHandler';
+import { OptimizedOrbitControls } from './OptimizedOrbitControls';
 
 // Simple rotating box component
 const RotatingBox: React.FC = () => {
@@ -31,7 +31,13 @@ const SceneSetup: React.FC = () => {
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <RotatingBox />
-      <OrbitControls />
+      <OptimizedOrbitControls 
+        enableDamping={true}
+        dampingFactor={0.05}
+        rotateSpeed={0.5}
+        minDistance={3}
+        maxDistance={10}
+      />
     </>
   );
 };

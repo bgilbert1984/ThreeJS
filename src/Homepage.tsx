@@ -1,9 +1,11 @@
 // src/Homepage.tsx
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import './components/three-extend'; // Import the THREE extensions
 import { NodeRef } from './types'; // Import NodeRef type
+import WebGLMemoryUtils from './utils/WebGLMemoryUtils';
+import { OptimizedOrbitControls } from './components/OptimizedOrbitControls';
 
 // Import custom components
 import { LlamaCore } from './components/LlamaCore';
@@ -50,6 +52,50 @@ const Homepage: React.FC = () => {
   const nodeRefs = useRef<Array<React.RefObject<NodeRef>>>(
     Array(5).fill(0).map(() => React.createRef<NodeRef>())
   );
+
+  // Add performance monitoring
+  useEffect(() => {
+    let lastTime = performance.now();
+    let frames = 0;
+    let fps = 0;
+    let rafId: number;
+    
+    const monitorPerformance = () => {
+      const now = performance.now();
+      frames++;
+      
+      if (now >= lastTime + 1000) {
+        fps = Math.round((frames * 1000) / (now - lastTime));
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`FPS: ${fps}`);
+        }
+        frames = 0;
+        lastTime = now;
+      }
+      
+      rafId = requestAnimationFrame(monitorPerformance);
+    };
+    
+    // Start monitoring
+    monitorPerformance();
+
+    // Regular cleanup interval
+    const cleanupInterval = setInterval(() => {
+      // Only run when tab is visible
+      if (!document.hidden) {
+        WebGLMemoryUtils.forceGarbageCollection();
+        
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Memory cleanup performed:', WebGLMemoryUtils.getDisposeStats());
+        }
+      }
+    }, 60000); // Every minute
+    
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearInterval(cleanupInterval);
+    };
+  }, []);
 
   return (
     <div className="homepage">
@@ -134,7 +180,7 @@ const Homepage: React.FC = () => {
                 >
                   <ambientLight intensity={0.5} />
                   <pointLight position={[10, 10, 10]} />
-                  <OrbitControls />
+                  <OptimizedOrbitControls enablePan={false} />
                   <LlamaCore />
                 </Canvas>
               </ThreeJSErrorBoundary>
@@ -255,7 +301,7 @@ const Homepage: React.FC = () => {
                       />
                     ))}
                   </Nodes>
-                  <OrbitControls />
+                  <OptimizedOrbitControls minDistance={5} maxDistance={15} />
                 </Canvas>
               </ThreeJSErrorBoundary>
             </div>
@@ -299,7 +345,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <ProcessingLoadBar value={0.7} label="Processing Load" color="red" />
-                    <OrbitControls />
+                    <OptimizedOrbitControls enablePan={false} maxDistance={10} />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
@@ -314,7 +360,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <SynapticConnections value={0.5} label="Connections" />
-                    <OrbitControls />
+                    <OptimizedOrbitControls />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
@@ -329,7 +375,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <DataFlow value={0.8} label="Data Flow" />
-                    <OrbitControls />
+                    <OptimizedOrbitControls />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
@@ -344,7 +390,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <AnticipationIndex value={0.3} label="Anticipation" />
-                    <OrbitControls />
+                    <OptimizedOrbitControls />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
@@ -359,7 +405,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <PromptCompletionProbability value={0.9} label="Completion" color="magenta" />
-                    <OrbitControls />
+                    <OptimizedOrbitControls />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
@@ -426,7 +472,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.3} />
                     <pointLight position={[10, 10, 10]} intensity={0.8} />
                     <RadarVisualization range={5} scanSpeed={0.5} />
-                    <OrbitControls />
+                    <OptimizedOrbitControls dampingFactor={0.1} rotateSpeed={0.7} />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
@@ -444,7 +490,7 @@ const Homepage: React.FC = () => {
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} intensity={0.8} />
                     <TerrainRadarMapping terrainType="mountains" resolution={64} scanSpeed={0.5} heightScale={1.5} />
-                    <OrbitControls />
+                    <OptimizedOrbitControls />
                   </Canvas>
                 </ThreeJSErrorBoundary>
               </div>
