@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useWebGLContextHandler } from './hooks/useWebGLContextHandler';
+import { WebGLMemoryUtils } from './utils/webglMemoryUtils';
 
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -15,7 +16,7 @@ const ThreeScene: React.FC = () => {
   } = useWebGLContextHandler({
     errorMessage: 'WebGL context was lost. Attempting to recover your 3D scene...',
     maxRecoveryAttempts: 3,
-    onContextLost: (_event) => { // Prefix with underscore to indicate intentionally unused parameter
+    onContextLost: (_event) => {
       console.warn('ThreeScene: WebGL context lost, pausing animations and interactions');
     },
     onContextRestored: () => {
@@ -29,85 +30,91 @@ const ThreeScene: React.FC = () => {
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Create scene, camera, and renderer
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-       75,
-       window.innerWidth / window.innerHeight,
-       0.1,
-       1000
-    );
+    // Check WebGL support and capabilities before initializing
+    const webGLSupport = WebGLMemoryUtils.checkWebGLSupport();
+    if (!webGLSupport.supported || !webGLSupport.hardwareAccelerated) {
+      console.error('WebGL not properly supported:', webGLSupport);
+      return;
+    }
 
-    // Add WebGL renderer options for better stability
-    const renderer = new THREE.WebGLRenderer({
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ 
       antialias: true,
-      alpha: true,
       powerPreference: 'high-performance',
       failIfMajorPerformanceCaveat: true
     });
+
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
     mountRef.current.appendChild(renderer.domElement);
 
-    // Add a simple cube
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    // Basic scene setup
+    camera.position.z = 5;
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-    // Register resources for proper disposal
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(1, 1, 1);
+    scene.add(ambientLight);
+    scene.add(directionalLight);
+
+    // Register resources for cleanup
     registerResources({
       geometries: [geometry],
       materials: [material],
-      textures: []
     });
 
-    // Position the camera
-    camera.position.z = 5;
-    
     // Animation function
     const animate = () => {
-      if (contextLost) return; // Don't animate when context is lost
-      
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      
-      renderer.render(scene, camera);
-      const id = requestAnimationFrame(animate);
-      setAnimationFrameId(id);
+      if (!contextLost) {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+        const frameId = requestAnimationFrame(animate);
+        setAnimationFrameId(frameId);
+      }
     };
-    
-    // Set up WebGL context loss/recovery handlers
-    // Fix: Pass all required arguments to setupContextHandler
-    setupContextHandler(renderer, scene, camera, animate);
-    
-    // Start animation loop
-    animate();
-    
+
     // Handle window resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (!contextLost) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
     };
-    
+
+    // Set up context loss handling
+    setupContextHandler(renderer, scene, camera, animate);
+
+    // Start animation and add event listeners
+    animate();
     window.addEventListener('resize', handleResize);
-    
-    // Cleanup function
+
+    // Performance monitoring
+    const monitorPerformance = () => {
+      const performanceIssues = WebGLMemoryUtils.checkPerformanceIssues();
+      if (performanceIssues.hasIssues) {
+        console.warn('Performance issues detected:', performanceIssues.issues);
+      }
+    };
+
+    const performanceInterval = setInterval(monitorPerformance, 10000);
+
+    // Cleanup
     return () => {
-      console.log('ThreeScene: Cleaning up resources');
       window.removeEventListener('resize', handleResize);
-      
-      // Clean up WebGL context handlers
-      cleanupContextHandler();
-      
-      // Remove the canvas from the DOM
-      if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
+      clearInterval(performanceInterval);
+      if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }
-      
-      // Dispose renderer
-      renderer.dispose();
+      cleanupContextHandler();
     };
   }, [setupContextHandler, cleanupContextHandler, registerResources, contextLost, setAnimationFrameId]);
 
