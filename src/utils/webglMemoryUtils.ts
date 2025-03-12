@@ -1,9 +1,201 @@
-// src/utils/webglMemoryUtils.ts
+import * as THREE from 'three';
+
+interface WebGLMemoryStats {
+  geometries: number;
+  textures: number;
+  programs: number;
+  totalMemoryMB?: number;
+  disposedCount: number;
+}
 
 /**
- * Utility class for monitoring and optimizing WebGL memory
+ * Utility class for managing WebGL memory and context
  */
 export class WebGLMemoryUtils {
+  private static disposedCount = 0;
+  private static lastDisposedCount = 0;
+  private static memoryStats: WebGLMemoryStats = {
+    geometries: 0,
+    textures: 0,
+    programs: 0,
+    disposedCount: 0
+  };
+
+  /**
+   * Check if WebGL is available and hardware accelerated
+   */
+  public static checkWebGLSupport(): {
+    supported: boolean;
+    hardwareAccelerated: boolean;
+    renderer: string;
+    vendor: string;
+    version: string;
+  } {
+    const canvas = document.createElement('canvas');
+    let gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+
+    if (!gl) {
+      return {
+        supported: false,
+        hardwareAccelerated: false,
+        renderer: 'None',
+        vendor: 'None',
+        version: 'None'
+      };
+    }
+
+    try {
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      let renderer = 'Unknown';
+      let vendor = 'Unknown';
+
+      if (debugInfo) {
+        renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+      }
+
+      // Check for software rendering
+      const isSoftwareRenderer = 
+        renderer.includes('SwiftShader') ||
+        renderer.includes('llvmpipe') ||
+        renderer.includes('Software') ||
+        renderer.includes('Mesa') ||
+        vendor.includes('Google SwiftShader') ||
+        (renderer.includes('ANGLE') && !renderer.includes('Direct3D')) ||
+        vendor.includes('Microsoft Basic Render');
+
+      return {
+        supported: true,
+        hardwareAccelerated: !isSoftwareRenderer,
+        renderer,
+        vendor,
+        version: gl.getParameter(gl.VERSION)
+      };
+    } catch (e) {
+      console.error('Error checking WebGL support:', e);
+      return {
+        supported: true,
+        hardwareAccelerated: false,
+        renderer: 'Error',
+        vendor: 'Error',
+        version: 'Error'
+      };
+    } finally {
+      // Clean up
+      const ext = gl.getExtension('WEBGL_lose_context');
+      if (ext) ext.loseContext();
+    }
+  }
+
+  /**
+   * Log WebGL information for a canvas
+   */
+  public static logWebGLInfo(canvas: HTMLCanvasElement): void {
+    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!gl) return;
+
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (debugInfo) {
+      console.log('WebGL Vendor:', gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL));
+      console.log('WebGL Renderer:', gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+    }
+
+    console.log('WebGL Version:', gl.getParameter(gl.VERSION));
+    console.log('Max Texture Size:', gl.getParameter(gl.MAX_TEXTURE_SIZE));
+    
+    // Log memory info if available
+    if ((performance as any).memory) {
+      console.log('JS Heap Size:', ((performance as any).memory.usedJSHeapSize / 1048576).toFixed(2), 'MB');
+    }
+  }
+
+  /**
+   * Force garbage collection of Three.js objects
+   */
+  public static forceGarbageCollection(): void {
+    if (!THREE) return;
+
+    const startStats = this.getWebGLResourceCount();
+    
+    // Clear Three.js caches
+    THREE.Cache.clear();
+    
+    // Reset tracking
+    this.lastDisposedCount = this.disposedCount;
+    this.disposedCount = 0;
+
+    // Update memory stats
+    const endStats = this.getWebGLResourceCount();
+    this.memoryStats = {
+      geometries: endStats.geometries,
+      textures: endStats.textures,
+      programs: endStats.programs,
+      totalMemoryMB: (performance as any).memory?.usedJSHeapSize / 1048576,
+      disposedCount: startStats.total - endStats.total
+    };
+  }
+
+  /**
+   * Get stats about disposed resources
+   */
+  public static getDisposeStats(): WebGLMemoryStats {
+    return this.memoryStats;
+  }
+
+  /**
+   * Get counts of current WebGL resources
+   */
+  private static getWebGLResourceCount() {
+    if (!(THREE as any).WebGLRenderer) return { geometries: 0, textures: 0, programs: 0, total: 0 };
+
+    const geometries = (THREE as any)._geometries?.length || 0;
+    const textures = (THREE as any)._textures?.length || 0;
+    const programs = (THREE as any)._programs?.length || 0;
+
+    return {
+      geometries,
+      textures, 
+      programs,
+      total: geometries + textures + programs
+    };
+  }
+
+  /**
+   * Check for performance issues that might indicate WebGL problems
+   */
+  public static checkPerformanceIssues(): {
+    hasIssues: boolean;
+    issues: string[];
+  } {
+    const issues: string[] = [];
+    let hasIssues = false;
+
+    // Check if using software rendering
+    const { hardwareAccelerated, renderer } = this.checkWebGLSupport();
+    if (!hardwareAccelerated) {
+      issues.push('Using software rendering - hardware acceleration may be disabled');
+      hasIssues = true;
+    }
+
+    // Check available memory
+    if ((performance as any).memory) {
+      const memoryUsage = (performance as any).memory.usedJSHeapSize / (performance as any).memory.jsHeapSizeLimit;
+      if (memoryUsage > 0.8) {
+        issues.push('High memory usage detected');
+        hasIssues = true;
+      }
+    }
+
+    // Check for high resource counts
+    const resources = this.getWebGLResourceCount();
+    if (resources.geometries > 1000 || resources.textures > 100) {
+      issues.push('High number of WebGL resources detected');
+      hasIssues = true;
+    }
+
+    return { hasIssues, issues };
+  }
+
   private static disposedGeometries = 0;
   private static disposedMaterials = 0;
   private static disposedTextures = 0;
