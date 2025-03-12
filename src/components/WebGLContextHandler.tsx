@@ -1,5 +1,5 @@
 // src/components/WebGLContextHandler.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface WebGLContextHandlerProps {
   children: React.ReactNode;
@@ -10,6 +10,8 @@ interface WebGLContextHandlerProps {
  * Wrap your Three.js components with this handler to prevent crashes
  */
 const WebGLContextHandler: React.FC<WebGLContextHandlerProps> = ({ children }) => {
+  const [contextLost, setContextLost] = useState(false);
+  
   useEffect(() => {
     // Create an overlay div for showing error messages
     const overlay = document.createElement('div');
@@ -40,35 +42,37 @@ const WebGLContextHandler: React.FC<WebGLContextHandlerProps> = ({ children }) =
       </style>
     `;
     document.body.appendChild(overlay);
+    overlay.style.display = 'none';
 
     // Handle context loss events
     const handleContextLost = (event: Event) => {
       event.preventDefault(); // Important: allows for potential recovery
       console.warn('WebGL context lost - attempting to recover');
+      setContextLost(true);
       overlay.style.display = 'flex';
       
-      // Attempt recovery after a short delay
+      // After a short delay, try reloading the page
       setTimeout(() => {
-        console.log('Attempting to reload page to recover WebGL context');
         window.location.reload();
-      }, 2000);
+      }, 3000);
     };
 
     // Handle context restored events
     const handleContextRestored = () => {
       console.log('WebGL context restored successfully');
+      setContextLost(false);
       overlay.style.display = 'none';
     };
 
     // Add global event listeners
-    window.addEventListener('webglcontextlost', handleContextLost, false);
-    window.addEventListener('webglcontextrestored', handleContextRestored, false);
+    window.addEventListener('webglcontextlost', handleContextLost);
+    window.addEventListener('webglcontextrestored', handleContextRestored);
 
     // Find all canvas elements and add listeners
     const canvasElements = document.querySelectorAll('canvas');
     canvasElements.forEach(canvas => {
-      canvas.addEventListener('webglcontextlost', handleContextLost, false);
-      canvas.addEventListener('webglcontextrestored', handleContextRestored, false);
+      canvas.addEventListener('webglcontextlost', handleContextLost);
+      canvas.addEventListener('webglcontextrestored', handleContextRestored);
     });
 
     // Clean up
@@ -83,6 +87,10 @@ const WebGLContextHandler: React.FC<WebGLContextHandlerProps> = ({ children }) =
       });
     };
   }, []);
+
+  if (contextLost) {
+    return null; // Don't render children when context is lost
+  }
 
   return <>{children}</>;
 };

@@ -46,6 +46,21 @@ const CanvasFallback: React.FC = () => {
       <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>
         Try using Chrome or Firefox for the best experience.
       </div>
+      
+      <button 
+        onClick={() => window.location.reload()}
+        style={{
+          marginTop: '20px',
+          padding: '8px 16px',
+          background: '#4444ff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}
+      >
+        Try Again
+      </button>
     </div>
   );
 };

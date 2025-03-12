@@ -5,7 +5,7 @@ import { useWebGLContextHandler } from './hooks/useWebGLContextHandler';
 const ThreeScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   
-  // Use our new WebGL context handler hook
+  // Use our WebGL context handler hook
   const {
     contextLost,
     setupContextHandler,
@@ -15,7 +15,7 @@ const ThreeScene: React.FC = () => {
   } = useWebGLContextHandler({
     errorMessage: 'WebGL context was lost. Attempting to recover your 3D scene...',
     maxRecoveryAttempts: 3,
-    onContextLost: (event) => {
+    onContextLost: (_event) => { // Prefix with underscore to indicate intentionally unused parameter
       console.warn('ThreeScene: WebGL context lost, pausing animations and interactions');
     },
     onContextRestored: () => {
@@ -65,9 +65,6 @@ const ThreeScene: React.FC = () => {
     // Position the camera
     camera.position.z = 5;
     
-    // Set up WebGL context loss/recovery handlers
-    setupContextHandler(renderer);
-    
     // Animation function
     const animate = () => {
       if (contextLost) return; // Don't animate when context is lost
@@ -79,6 +76,10 @@ const ThreeScene: React.FC = () => {
       const id = requestAnimationFrame(animate);
       setAnimationFrameId(id);
     };
+    
+    // Set up WebGL context loss/recovery handlers
+    // Fix: Pass all required arguments to setupContextHandler
+    setupContextHandler(renderer, scene, camera, animate);
     
     // Start animation loop
     animate();
