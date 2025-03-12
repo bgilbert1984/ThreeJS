@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
