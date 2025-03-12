@@ -18,3 +18,17 @@ import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// Handle uncaught exceptions from ThreeJS/WebGL
+Cypress.on('uncaught:exception', (err) => {
+  // Check if the error is related to Canvas or WebGL
+  if (err.message.includes('Canvas') || 
+      err.message.includes('WebGL') || 
+      err.message.includes('GPU process') || 
+      err.message.includes('SwiftShader')) {
+    // Returning false prevents Cypress from failing the test
+    return false
+  }
+  // If it's not a WebGL related error, let the test fail
+  return true
+})

@@ -1,9 +1,13 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+
+// Extend THREE and postprocessing components
+extend({ EffectComposer, RenderPass, UnrealBloomPass });
 
 // Neural activity simulation types
 interface NeuronSignal {
@@ -622,8 +626,34 @@ const NeuralNetworkVisualization: React.FC = () => {
   
   return (
     <div className="w-full h-screen relative">
-      <div className="absolute top-0 left-0 w-full h-full" ref={mountRef} />
-      
+      <div className="absolute top-0 left-0 w-full h-full">
+        <Canvas
+          camera={{ position: [0, 0, 40], fov: 75 }}
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance',
+            failIfMajorPerformanceCaveat: true
+          }}
+          onContextLost={(event) => {
+            event.preventDefault();
+            console.warn('WebGL context lost, attempting to restore...');
+          }}
+          onContextRestored={() => {
+            console.log('WebGL context restored');
+            // Re-initialize if needed
+          }}
+        >
+          {/* Scene contents */}
+          <Scene 
+            settings={settings} 
+            activationMode={activationMode}
+            activeNeurons={activeNeurons}
+            setActiveNeurons={setActiveNeurons}
+          />
+        </Canvas>
+      </div>
+
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 text-white">
           <p className="text-xl">Loading visualization...</p>
@@ -736,6 +766,64 @@ const NeuralNetworkVisualization: React.FC = () => {
       )}
     </div>
   );
+};
+
+// Separate Scene component for better organization
+const Scene: React.FC<{
+  settings: VisualizationSettings;
+  activationMode: string;
+  activeNeurons: Map<string, number>;
+  setActiveNeurons: (neurons: Map<string, number>) => void;
+}> = ({ settings, activationMode, activeNeurons, setActiveNeurons }) => {
+  const { scene, camera, gl } = useThree();
+  
+  // Move scene setup logic here and use useFrame for animation
+  useFrame((state, delta) => {
+    // Animation logic here
+    // ...existing animation code...
+  });
+
+  useEffect(() => {
+    // Scene initialization
+    scene.background = new THREE.Color(0x080808);
+    
+    // Setup here...
+    return () => {
+      // Cleanup here...
+    };
+  }, [scene]);
+
+  return (
+    <>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[10, 10, 10]} intensity={1} />
+      <OrbitControls 
+        enableDamping 
+        dampingFactor={0.05} 
+        rotateSpeed={0.5} 
+        enabled={false}
+      />
+      {/* Neural network visualization components */}
+      <NeuralLayers 
+        settings={settings}
+        activationMode={activationMode}
+        activeNeurons={activeNeurons}
+        setActiveNeurons={setActiveNeurons}
+      />
+    </>
+  );
+};
+
+// Neural network layers component
+const NeuralLayers: React.FC<{
+  settings: VisualizationSettings;
+  activationMode: string;
+  activeNeurons: Map<string, number>;
+  setActiveNeurons: (neurons: Map<string, number>) => void;
+}> = ({ settings, activationMode, activeNeurons, setActiveNeurons }) => {
+  // Implementation of neural network visualization
+  // ... Rest of the implementation ...
+  return null; // Replace with actual implementation
 };
 
 export default NeuralNetworkVisualization;

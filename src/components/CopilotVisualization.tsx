@@ -1,6 +1,7 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Box } from '@react-three/drei';
+import '../components/three-extend';
 
 interface VoxelProps {
   position: number[];
@@ -14,18 +15,17 @@ const Voxel: React.FC<VoxelProps> = ({ position, color }) => (
 );
 
 const VoxelPointCloud = () => {
-  const voxelCount = 100; // Number of voxels
-  const voxels = Array.from({ length: voxelCount }).map((_, index) => ({
+  const voxels = Array.from({ length: 100 }).map((_, index) => ({
     position: [
-      Math.random() * 10 - 5, // Random X
-      Math.random() * 10 - 5, // Random Y
-      Math.random() * 10 - 5, // Random Z
+      Math.random() * 10 - 5,
+      Math.random() * 10 - 5,
+      Math.random() * 10 - 5,
     ],
-    color: `hsl(${Math.random() * 360}, 80%, 60%)`, // Random colors
+    color: `hsl(${Math.random() * 360}, 80%, 60%)`,
   }));
 
   return (
-    <Canvas>
+    <Canvas gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}>
       <ambientLight data-testid="ambientLight" />
       <pointLight data-testid="pointLight" position={[10, 10, 10]} />
       {voxels.map((voxel, index) => (

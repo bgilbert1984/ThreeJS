@@ -2,9 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Remove the incorrect extension - Canvas should be imported from @react-three/fiber, not extended
-// extend({ Canvas });
-
 /**
  * GrokVisualization Component
  * Renders a 3D abstract representation of Grok with nodes and connections.
