@@ -1,22 +1,24 @@
 // src/main.tsx
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+
+// Import Three.js extensions before anything else
 import './components/three-extend';
 
-// Simple error handler that doesn't try to be too clever
+// Then import styles and components
+import './index.css'
+import App from './App'
+
+// Global error handler for better error reporting
 window.addEventListener('error', (event) => {
   console.error('Global error caught:', event.error);
-  
-  // Only handle WebGL related errors to avoid breaking other functionality
-  if (
-    event.error?.message?.includes('WebGL') ||
-    event.error?.message?.includes('context')
-  ) {
-    console.warn('WebGL related error caught:', event.error);
-  }
 });
+
+// Add specific handler for WebGL context loss
+window.addEventListener('webglcontextlost', (event) => {
+  event.preventDefault(); // This is important
+  console.warn('WebGL context lost. Please refresh the page.');
+}, false);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
