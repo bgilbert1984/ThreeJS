@@ -3,12 +3,12 @@
   "numPassedTestSuites": 2,
   "numFailedTestSuites": 0,
   "numPendingTestSuites": 0,
-  "numTotalTests": 7,
-  "numPassedTests": 7,
+  "numTotalTests": 1,
+  "numPassedTests": 1,
   "numFailedTests": 0,
   "numPendingTests": 0,
   "numTodoTests": 0,
-  "startTime": 1741715453300,
+  "startTime": 1741792211709,
   "success": true,
   "testResults": [
     {
@@ -16,86 +16,20 @@
         {
           "ancestorTitles": [
             "",
-            "Homepage"
+            "<GrokVisualization />"
           ],
-          "fullName": " Homepage renders without crashing",
+          "fullName": " <GrokVisualization /> renders without crashing",
           "status": "passed",
           "title": "renders without crashing",
-          "duration": 38,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "Homepage"
-          ],
-          "fullName": " Homepage renders all navigation sections",
-          "status": "passed",
-          "title": "renders all navigation sections",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "Homepage"
-          ],
-          "fullName": " Homepage changes active section when clicking navigation buttons",
-          "status": "passed",
-          "title": "changes active section when clicking navigation buttons",
-          "duration": 35,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "Homepage"
-          ],
-          "fullName": " Homepage renders 3D canvas elements",
-          "status": "passed",
-          "title": "renders 3D canvas elements",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "Homepage"
-          ],
-          "fullName": " Homepage renders monitor component section with all visualizations",
-          "status": "passed",
-          "title": "renders monitor component section with all visualizations",
           "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "Homepage"
-          ],
-          "fullName": " Homepage renders contact form with required fields",
-          "status": "passed",
-          "title": "renders contact form with required fields",
-          "duration": 23,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "Homepage"
-          ],
-          "fullName": " Homepage renders social media links",
-          "status": "passed",
-          "title": "renders social media links",
-          "duration": 8,
           "failureMessages": []
         }
       ],
-      "startTime": 1741715454047,
-      "endTime": 1741715454187,
+      "startTime": 1741792212575,
+      "endTime": 1741792212588,
       "status": "passed",
       "message": "",
-      "name": "/home/gorelock/threejs-test-project/src/Homepage.test.tsx"
+      "name": "/home/gorelock/threejs-test-project/src/components/GrokVisualization.spec.tsx"
     }
   ]
 }

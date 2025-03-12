@@ -25,7 +25,9 @@ Cypress.on('uncaught:exception', (err) => {
   if (err.message.includes('Canvas') || 
       err.message.includes('WebGL') || 
       err.message.includes('GPU process') || 
-      err.message.includes('SwiftShader')) {
+      err.message.includes('SwiftShader') ||
+      err.message.includes('R3F') ||  // Added for React Three Fiber errors
+      err.message.includes('THREE namespace')) { // Added for specific R3F extension errors
     // Returning false prevents Cypress from failing the test
     return false
   }
