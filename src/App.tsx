@@ -2,7 +2,7 @@
 import React, { Suspense } from 'react';
 import Homepage from './Homepage';
 import ThreeJSErrorBoundary from './components/ErrorBoundary';
-import WebGLContextHandler from './components/WebGLContextHandler';
+import CanvasFallback from './components/CanvasFallback';
 
 // Loading spinner component
 const Loader = () => (
@@ -35,12 +35,10 @@ const Loader = () => (
 
 const App: React.FC = () => {
   return (
-    <ThreeJSErrorBoundary>
-      <WebGLContextHandler>
-        <Suspense fallback={<Loader />}>
-          <Homepage />
-        </Suspense>
-      </WebGLContextHandler>
+    <ThreeJSErrorBoundary fallback={<CanvasFallback />}>
+      <Suspense fallback={<Loader />}>
+        <Homepage />
+      </Suspense>
     </ThreeJSErrorBoundary>
   );
 };
