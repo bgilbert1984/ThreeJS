@@ -11,90 +11,6 @@ events-f80b1519.esm.js:1268  Uncaught Error: R3F: Canvas is not part of the THRE
     at renderRootSync (react-reconciler.development.js:12441:11)
     at performWorkOnRoot (react-reconciler.development.js:11960:44)
     at performWorkOnRootViaSchedulerTask (react-reconciler.development.js:2137:7)
-validateInstance @ events-f80b1519.esm.js:1268
-createInstance @ events-f80b1519.esm.js:1280
-completeWork @ react-reconciler.development.js:8867
-runWithFiberInDEV @ react-reconciler.development.js:522
-completeUnitOfWork @ react-reconciler.development.js:12776
-performUnitOfWork @ react-reconciler.development.js:12658
-workLoopSync @ react-reconciler.development.js:12461
-renderRootSync @ react-reconciler.development.js:12441
-performWorkOnRoot @ react-reconciler.development.js:11960
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
-OrbitControls.ts:419 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
-OrbitControls.connect @ OrbitControls.ts:419
-(anonymous) @ OrbitControls.js:36
-react-stack-bottom-frame @ react-reconciler.development.js:14573
-runWithFiberInDEV @ react-reconciler.development.js:522
-commitHookEffectListMount @ react-reconciler.development.js:9395
-commitHookPassiveMountEffects @ react-reconciler.development.js:9515
-reconnectPassiveEffects @ react-reconciler.development.js:11345
-recursivelyTraverseReconnectPassiveEffects @ react-reconciler.development.js:11317
-commitPassiveMountOnFiber @ react-reconciler.development.js:11274
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11201
-flushPassiveEffects @ react-reconciler.development.js:13052
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2128
-performWorkUntilDeadline @ scheduler.development.js:44
-OrbitControls.ts:419 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
-OrbitControls.connect @ OrbitControls.ts:419
-(anonymous) @ OrbitControls.js:36
-react-stack-bottom-frame @ react-reconciler.development.js:14573
-runWithFiberInDEV @ react-reconciler.development.js:522
-commitHookEffectListMount @ react-reconciler.development.js:9395
-commitHookPassiveMountEffects @ react-reconciler.development.js:9515
-commitPassiveMountOnFiber @ react-reconciler.development.js:11197
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11267
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11201
-flushPassiveEffects @ react-reconciler.development.js:13052
-commitRootImpl @ react-reconciler.development.js:12985
-commitRoot @ react-reconciler.development.js:12848
-commitRootWhenReady @ react-reconciler.development.js:12146
-performWorkOnRoot @ react-reconciler.development.js:12070
-performSyncWorkOnRoot @ react-reconciler.development.js:2152
-flushSyncWorkAcrossRoots_impl @ react-reconciler.development.js:2013
-flushPassiveEffects @ react-reconciler.development.js:13064
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2128
-performWorkUntilDeadline @ scheduler.development.js:44
 events-f80b1519.esm.js:1268  Uncaught Error: R3F: Canvas is not part of the THREE namespace! Did you forget to extend? See: https://docs.pmnd.rs/react-three-fiber/api/objects#using-3rd-party-objects-declaratively
     at validateInstance (events-f80b1519.esm.js:1268:46)
     at createInstance (events-f80b1519.esm.js:1280:3)
@@ -106,70 +22,58 @@ events-f80b1519.esm.js:1268  Uncaught Error: R3F: Canvas is not part of the THRE
     at renderRootSync (react-reconciler.development.js:12441:11)
     at performWorkOnRoot (react-reconciler.development.js:11960:44)
     at performWorkOnRootViaSchedulerTask (react-reconciler.development.js:2137:7)
-validateInstance @ events-f80b1519.esm.js:1268
-createInstance @ events-f80b1519.esm.js:1280
-completeWork @ react-reconciler.development.js:8867
-runWithFiberInDEV @ react-reconciler.development.js:522
-completeUnitOfWork @ react-reconciler.development.js:12776
-performUnitOfWork @ react-reconciler.development.js:12658
-workLoopSync @ react-reconciler.development.js:12461
-renderRootSync @ react-reconciler.development.js:12441
-performWorkOnRoot @ react-reconciler.development.js:11960
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
-events-f80b1519.esm.js:2219 [Violation] 'requestAnimationFrame' handler took 210ms
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
-object-clump.tsx:62 Caught texture loading error: Promise {<pending>}
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
+object-clump.tsx:62 Caught texture loading error: Promise
 react-reconciler.development.js:3999  Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
     at renderWithHooksAgain (react-reconciler.development.js:3999:17)
     at renderWithHooks (react-reconciler.development.js:3917:21)
@@ -181,56 +85,6 @@ react-reconciler.development.js:3999  Uncaught Error: Too many re-renders. React
     at renderRootSync (react-reconciler.development.js:12441:11)
     at performWorkOnRoot (react-reconciler.development.js:11960:44)
     at performWorkOnRootViaSchedulerTask (react-reconciler.development.js:2137:7)
-renderWithHooksAgain @ react-reconciler.development.js:3999
-renderWithHooks @ react-reconciler.development.js:3917
-updateFunctionComponent @ react-reconciler.development.js:6059
-beginWork @ react-reconciler.development.js:7632
-runWithFiberInDEV @ react-reconciler.development.js:522
-performUnitOfWork @ react-reconciler.development.js:12641
-workLoopSync @ react-reconciler.development.js:12461
-renderRootSync @ react-reconciler.development.js:12441
-performWorkOnRoot @ react-reconciler.development.js:11960
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
-OrbitControls.ts:419 [Violation] Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
-OrbitControls.connect @ OrbitControls.ts:419
-(anonymous) @ OrbitControls.js:36
-react-stack-bottom-frame @ react-reconciler.development.js:14573
-runWithFiberInDEV @ react-reconciler.development.js:522
-commitHookEffectListMount @ react-reconciler.development.js:9395
-commitHookPassiveMountEffects @ react-reconciler.development.js:9515
-reconnectPassiveEffects @ react-reconciler.development.js:11345
-recursivelyTraverseReconnectPassiveEffects @ react-reconciler.development.js:11317
-commitPassiveMountOnFiber @ react-reconciler.development.js:11274
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11298
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11190
-recursivelyTraversePassiveMountEffects @ react-reconciler.development.js:11171
-commitPassiveMountOnFiber @ react-reconciler.development.js:11201
-flushPassiveEffects @ react-reconciler.development.js:13052
-performSyncWorkOnRoot @ react-reconciler.development.js:2149
-flushSyncWorkAcrossRoots_impl @ react-reconciler.development.js:2013
-commitRootImpl @ react-reconciler.development.js:12994
-commitRoot @ react-reconciler.development.js:12848
-commitRootWhenReady @ react-reconciler.development.js:12146
-performWorkOnRoot @ react-reconciler.development.js:12070
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
 events-f80b1519.esm.js:401  Uncaught TypeError: Cannot set properties of undefined (setting 'testid')
     at applyProps (events-f80b1519.esm.js:401:15)
     at handleContainerEffects (events-f80b1519.esm.js:1331:3)
@@ -242,36 +96,6 @@ events-f80b1519.esm.js:401  Uncaught TypeError: Cannot set properties of undefin
     at insertOrAppendPlacementNodeIntoContainer (react-reconciler.development.js:9841:11)
     at insertOrAppendPlacementNodeIntoContainer (react-reconciler.development.js:9836:11)
     at insertOrAppendPlacementNodeIntoContainer (react-reconciler.development.js:9836:11)
-applyProps @ events-f80b1519.esm.js:401
-handleContainerEffects @ events-f80b1519.esm.js:1331
-appendChild @ events-f80b1519.esm.js:1376
-appendChildToContainer @ events-f80b1519.esm.js:1549
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9830
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9841
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-insertOrAppendPlacementNodeIntoContainer @ react-reconciler.development.js:9836
-commitPlacement @ react-reconciler.development.js:9900
-runWithFiberInDEV @ react-reconciler.development.js:522
-commitReconciliationEffects @ react-reconciler.development.js:10928
-commitMutationEffectsOnFiber @ react-reconciler.development.js:10530
-recursivelyTraverseMutationEffects @ react-reconciler.development.js:10518
-commitMutationEffectsOnFiber @ react-reconciler.development.js:10707
-commitMutationEffects @ react-reconciler.development.js:10473
-commitRootImpl @ react-reconciler.development.js:12934
-commitRoot @ react-reconciler.development.js:12848
-commitRootWhenReady @ react-reconciler.development.js:12146
-performWorkOnRoot @ react-reconciler.development.js:12070
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
 events-f80b1519.esm.js:1432  Uncaught TypeError: Cannot convert undefined or null to object
     at removeChild (events-f80b1519.esm.js:1432:16)
     at removeChild (events-f80b1519.esm.js:1427:5)
@@ -283,77 +107,6 @@ events-f80b1519.esm.js:1432  Uncaught TypeError: Cannot convert undefined or nul
     at commitDeletionEffectsOnFiber (react-reconciler.development.js:10359:11)
     at recursivelyTraverseDeletionEffects (react-reconciler.development.js:10194:9)
     at commitDeletionEffectsOnFiber (react-reconciler.development.js:10359:11)
-removeChild @ events-f80b1519.esm.js:1432
-removeChild @ events-f80b1519.esm.js:1427
-removeChild @ events-f80b1519.esm.js:1427
-removeChildFromContainer @ events-f80b1519.esm.js:1554
-runWithFiberInDEV @ react-reconciler.development.js:522
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10273
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10359
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10359
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10394
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10402
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10375
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10402
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10375
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10359
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10402
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10359
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10402
-recursivelyTraverseDeletionEffects @ react-reconciler.development.js:10194
-commitDeletionEffectsOnFiber @ react-reconciler.development.js:10359
-recursivelyTraverseMutationEffects @ react-reconciler.development.js:10507
-commitMutationEffectsOnFiber @ react-reconciler.development.js:10707
-commitMutationEffects @ react-reconciler.development.js:10473
-commitRootImpl @ react-reconciler.development.js:12934
-commitRoot @ react-reconciler.development.js:12848
-commitRootWhenReady @ react-reconciler.development.js:12146
-performWorkOnRoot @ react-reconciler.development.js:12070
-performSyncWorkOnRoot @ react-reconciler.development.js:2152
-flushSyncWorkAcrossRoots_impl @ react-reconciler.development.js:2013
-commitRootImpl @ react-reconciler.development.js:12994
-commitRoot @ react-reconciler.development.js:12848
-commitRootWhenReady @ react-reconciler.development.js:12146
-performWorkOnRoot @ react-reconciler.development.js:12070
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
-cross.jpg:1 
-            
-            
-            GET http://127.0.0.1:5173/assets/cross.jpg 404 (Not Found)
-Image
-load @ three.core.js:36462
-load @ three.core.js:36661
-(anonymous) @ events-f80b1519.esm.js:1191
-(anonymous) @ events-f80b1519.esm.js:1191
-(anonymous) @ events-f80b1519.esm.js:1191
-query @ index.js:51
-suspend @ index.js:68
-useLoader @ events-f80b1519.esm.js:1207
-useTexture @ Texture.js:9
-Clump @ object-clump.tsx:57
-react-stack-bottom-frame @ react-reconciler.development.js:14492
-renderWithHooks @ react-reconciler.development.js:3914
-updateFunctionComponent @ react-reconciler.development.js:6059
-beginWork @ react-reconciler.development.js:7632
-runWithFiberInDEV @ react-reconciler.development.js:522
-performUnitOfWork @ react-reconciler.development.js:12641
-workLoopSync @ react-reconciler.development.js:12461
-renderRootSync @ react-reconciler.development.js:12441
-performWorkOnRoot @ react-reconciler.development.js:11909
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
 events-f80b1519.esm.js:1268  Uncaught Error: R3F: Canvas is not part of the THREE namespace! Did you forget to extend? See: https://docs.pmnd.rs/react-three-fiber/api/objects#using-3rd-party-objects-declaratively
     at validateInstance (events-f80b1519.esm.js:1268:46)
     at createInstance (events-f80b1519.esm.js:1280:3)
@@ -365,18 +118,7 @@ events-f80b1519.esm.js:1268  Uncaught Error: R3F: Canvas is not part of the THRE
     at renderRootSync (react-reconciler.development.js:12441:11)
     at performWorkOnRoot (react-reconciler.development.js:11960:44)
     at performWorkOnRootViaSchedulerTask (react-reconciler.development.js:2137:7)
-validateInstance @ events-f80b1519.esm.js:1268
-createInstance @ events-f80b1519.esm.js:1280
-completeWork @ react-reconciler.development.js:8867
-runWithFiberInDEV @ react-reconciler.development.js:522
-completeUnitOfWork @ react-reconciler.development.js:12776
-performUnitOfWork @ react-reconciler.development.js:12658
-workLoopSync @ react-reconciler.development.js:12461
-renderRootSync @ react-reconciler.development.js:12441
-performWorkOnRoot @ react-reconciler.development.js:11960
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
-react-dom-client.development.js:7398  Uncaught Error: R3F: Canvas is not part of the THREE namespace! Did you forget to extend? See: https://docs.pmnd.rs/react-three-fiber/api/objects#using-3rd-party-objects-declaratively
+events-f80b1519.esm.js:1268  Uncaught Error: R3F: Canvas is not part of the THREE namespace! Did you forget to extend? See: https://docs.pmnd.rs/react-three-fiber/api/objects#using-3rd-party-objects-declaratively
     at validateInstance (events-f80b1519.esm.js:1268:46)
     at createInstance (events-f80b1519.esm.js:1280:3)
     at completeWork (react-reconciler.development.js:8867:33)
@@ -387,17 +129,6 @@ react-dom-client.development.js:7398  Uncaught Error: R3F: Canvas is not part of
     at renderRootSync (react-reconciler.development.js:12441:11)
     at performWorkOnRoot (react-reconciler.development.js:11960:44)
     at performWorkOnRootViaSchedulerTask (react-reconciler.development.js:2137:7)
-validateInstance @ events-f80b1519.esm.js:1268
-createInstance @ events-f80b1519.esm.js:1280
-completeWork @ react-reconciler.development.js:8867
-runWithFiberInDEV @ react-reconciler.development.js:522
-completeUnitOfWork @ react-reconciler.development.js:12776
-performUnitOfWork @ react-reconciler.development.js:12658
-workLoopSync @ react-reconciler.development.js:12461
-renderRootSync @ react-reconciler.development.js:12441
-performWorkOnRoot @ react-reconciler.development.js:11960
-performWorkOnRootViaSchedulerTask @ react-reconciler.development.js:2137
-performWorkUntilDeadline @ scheduler.development.js:44
 hook.js:608  An error occurred in the <CanvasImpl> component.
 
 Consider adding an error boundary to your tree to customize error handling behavior.
@@ -410,27 +141,23 @@ Visit https://react.dev/link/error-boundaries to learn more about error boundari
     at div (<anonymous>)
     at Homepage (Homepage.tsx:47:45)
 overrideMethod @ hook.js:608
-defaultOnUncaughtError @ react-dom-client.development.js:7409
-logUncaughtError @ react-dom-client.development.js:7469
-runWithFiberInDEV @ react-dom-client.development.js:543
-lane.callback @ react-dom-client.development.js:7499
-callCallback @ react-dom-client.development.js:10680
-commitCallbacks @ react-dom-client.development.js:10700
-runWithFiberInDEV @ react-dom-client.development.js:543
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11511
-commitLayoutEffects @ react-dom-client.development.js:12406
-commitRootImpl @ react-dom-client.development.js:15352
-commitRoot @ react-dom-client.development.js:15251
-commitRootWhenReady @ react-dom-client.development.js:14570
-performWorkOnRoot @ react-dom-client.development.js:14494
-performWorkOnRootViaSchedulerTask @ react-dom-client.development.js:15931
-performWorkUntilDeadline @ scheduler.development.js:44
-030b4e77-78d0-4df0-8c2f-8a9b165a3109:569 unsupported GPOS table LookupType 8 format 2
-030b4e77-78d0-4df0-8c2f-8a9b165a3109:569 unsupported GPOS table LookupType 5 format 1
-030b4e77-78d0-4df0-8c2f-8a9b165a3109:663 unsupported GSUB table LookupType 6 format 2
-030b4e77-78d0-4df0-8c2f-8a9b165a3109:663 unsupported GSUB table LookupType 6 format 1
+98147bf5-d384-4e98-96a7-d4c2afb5d08f:569 unsupported GPOS table LookupType 8 format 2
+98147bf5-d384-4e98-96a7-d4c2afb5d08f:569 unsupported GPOS table LookupType 5 format 1
+98147bf5-d384-4e98-96a7-d4c2afb5d08f:663 unsupported GSUB table LookupType 6 format 2
+98147bf5-d384-4e98-96a7-d4c2afb5d08f:663 unsupported GSUB table LookupType 6 format 1
+cross.jpg:1 
+            
+            
+            Failed to load resource: the server responded with a status of 404 (Not Found)
 three.module.js:15029 THREE.WebGLRenderer: Context Lost.
 three.module.js:15029 THREE.WebGLRenderer: Context Lost.
-Homepage.tsx:29  WebGL context lost: WebGLContextEvent {isTrusted: true, statusMessage: '', type: 'webglcontextlost', target: canvas, currentTarget: canvas, …}
-overrideMethod @ hook.js:608
-handleContextLost @ Homepage.tsx:29
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
+three.module.js:15029 THREE.WebGLRenderer: Context Lost.
